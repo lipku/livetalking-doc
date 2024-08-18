@@ -39,7 +39,7 @@ python app.py --fullbody --fullbody_img data/fullbody/img --fullbody_offset_x 10
 - ernerf训练第三步torso如果训练的不好，在拼接处会有接缝。可以在上面的命令加上--torso_imgs data/xxx/torso_imgs，torso不用模型推理，直接用训练数据集里的torso图片。这种方式可能头颈处会有些人工痕迹。
 
 ##### 替换成自己的数字人
-替换成自己训练的模型(https://github.com/Fictionarry/ER-NeRF)
+替换成自己训练的模型<https://github.com/Fictionarry/ER-NeRF>
 ```bash
 ├── data
 │   ├── data_kf.json
@@ -61,9 +61,9 @@ mim install "mmdet>=3.1.0"
 mim install "mmpose>=1.1.0"
 ```
 - 下载模型  
-下载MuseTalk运行需要的模型，提供一个下载地址 https://caiyun.139.com/m/i?2eAjs2nXXnRgr  提取码:qdg2
+下载MuseTalk运行需要的模型，提供一个下载地址<https://caiyun.139.com/m/i?2eAjs2nXXnRgr>  提取码:qdg2
 解压后，将models下文件拷到本项目的models下  
-下载数字人模型，链接: https://caiyun.139.com/m/i?2eAjs8optksop  提取码:3mkt, 解压后将整个文件夹拷到本项目的data/avatars下
+下载数字人模型，链接:<https://caiyun.139.com/m/i?2eAjs8optksop>  提取码:3mkt, 解压后将整个文件夹拷到本项目的data/avatars下
 - 运行  
 python app.py --model musetalk --transport webrtc  
 用浏览器打开http://serverip:8010/webrtcapi.html  
@@ -85,7 +85,7 @@ python simple_musetalk.py --avatar_id 4  --file D:\\ok\\test.mp4
 #### 3.1.3 模型用wav2lip
 暂不支持rtmp推送
 - 下载模型  
-下载wav2lip运行需要的模型，链接: https://pan.baidu.com/s/1yOsQ06-RIDTJd3HFCw4wtA  密码: ltua
+下载wav2lip运行需要的模型，链接:<https://pan.baidu.com/s/1yOsQ06-RIDTJd3HFCw4wtA> 密码: ltua
 将s3fd.pth拷到本项目wav2lip/face_detection/detection/sfd/s3fd.pth, 将wav2lip.pth拷到本项目的models下  
 数字人模型文件 wav2lip_avatar1.tar.gz, 解压后将整个文件夹拷到本项目的data/avatars下
 - 运行  
@@ -126,7 +126,7 @@ python app.py --transport rtcpush --push_url 'http://localhost:1985/rtc/v1/whip/
 
 #### 3.2.3 rtmp推送到srs
 - 安装rtmpstream库  
-参照 https://github.com/lipku/python_rtmpstream
+参照<https://github.com/lipku/python_rtmpstream>
 
 - 启动srs
 ```
@@ -149,7 +149,7 @@ python app.py --tts gpt-sovits --TTS_SERVER http://127.0.0.1:9880 --REF_FILE dat
 REF_TEXT为REF_FILE中语音内容，时长不宜过长
 
 #### 3.3.2 xtts
-运行xtts服务，参照 https://github.com/coqui-ai/xtts-streaming-server
+运行xtts服务，参照<https://github.com/coqui-ai/xtts-streaming-server>
 ```
 docker run --gpus=all -e COQUI_TOS_AGREED=1 --rm -p 9000:80 ghcr.io/coqui-ai/xtts-streaming-server:latest
 ```

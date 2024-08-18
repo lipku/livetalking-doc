@@ -13,7 +13,7 @@ Real time interactive streaming digital human， realize audio video synchronous
 5. 支持rtmp和webrtc
 6. 支持视频编排：不说话时播放自定义视频
 
-##
+---
 * 知识星球: https://t.zsxq.com/7NMyO 沉淀高质量常见问题、最佳实践经验、问题解答  
-* 微信公众号：数字人技术 
+* 微信公众号：数字人技术   
 ![](./assets/qrcode_wechat.jpg)

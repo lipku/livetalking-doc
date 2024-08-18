@@ -5,6 +5,5 @@ docker run --gpus all -it --network=host --rm registry.cn-beijing.aliyuncs.com/c
 ```
 代码在/root/metahuman-stream，先git pull拉一下最新代码，然后执行命令同usage
 
-另外提供autodl镜像： 
-https://www.codewithgpu.com/i/lipku/metahuman-stream/base  
+另外提供autodl镜像：<https://www.codewithgpu.com/i/lipku/metahuman-stream/base>  
 [autodl教程](autodl/README.md)
