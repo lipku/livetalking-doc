@@ -2,7 +2,7 @@
 
 # -- Project information
 
-project = 'LiveTaking'
+project = 'LiveTalking'
 copyright = '2021, lipku'
 author = 'lipku'
 
