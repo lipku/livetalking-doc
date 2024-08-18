@@ -1,13 +1,19 @@
-Welcome to Lumache's documentation!
-===================================
+Welcome to LiveTaking's documentation!
+======================================
 
-**Lumache** (/lu'make/) is a Python library for cooks and food lovers
-that creates recipes mixing random ingredients.
-It pulls data from the `Open Food Facts database <https://world.openfoodfacts.org/>`_
-and offers a *simple* and *intuitive* API.
+Real time interactive streaming digital human， realize audio video synchronous dialogue. It can basically achieve commercial effects.    
 
-Check out the :doc:`usage` section for further information, including
-how to :ref:`installation` the project.
+实时交互流式数字人，实现音视频同步对话。基本可以达到商用效果
+
+`[ernerf效果] <https://www.bilibili.com/video/BV1PM4m1y7Q2/>`_
+`[musetalk效果] <https://www.bilibili.com/video/BV1gm421N7vQ/>`_  
+`[wav2lip效果] <https://www.bilibili.com/video/BV1Bw4m1e74P/>`_
+
+知识星球: https://t.zsxq.com/7NMyO 沉淀高质量常见问题、最佳实践经验、问题解答   
+
+微信公众号：数字人技术
+
+.. image:: ./assets/qrcode_wechat.jpg
 
 .. note::
 
@@ -18,5 +24,7 @@ Contents
 
 .. toctree::
 
+   feature
+   install
+   quickstart
    usage
-   api
