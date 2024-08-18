@@ -1,5 +1,5 @@
 
-## 3. More Usage
+## 3. Usage
 分别选择数字人模型、传输方式、tts模型
 
 ### 3.1 数字人模型
@@ -37,6 +37,17 @@ python app.py --fullbody --fullbody_img data/fullbody/img --fullbody_offset_x 10
 - --fullbody_width、--fullbody_height 全身视频的宽、高
 - --W、--H 训练视频的宽、高  
 - ernerf训练第三步torso如果训练的不好，在拼接处会有接缝。可以在上面的命令加上--torso_imgs data/xxx/torso_imgs，torso不用模型推理，直接用训练数据集里的torso图片。这种方式可能头颈处会有些人工痕迹。
+
+##### 替换成自己的数字人
+替换成自己训练的模型(https://github.com/Fictionarry/ER-NeRF)
+```bash
+├── data
+│   ├── data_kf.json
+│   ├── au.csv			
+│   ├── pretrained
+│   └── └── ngp_kf.pth
+
+```
 
 #### 3.1.2 模型用musetalk
 暂不支持rtmp推送
@@ -174,39 +185,5 @@ python app.py --transport webrtc --customvideo_config data/custom_config.json
 ### 3.6 更多功能集成
 - 语音输入、知识库问答 [Fay](https://github.com/xszyou/Fay)
 - 虚拟主播，字幕抓取 [Luna](https://github.com/Ikaros-521/AI-Vtuber)
-  
-## 4. Docker Run  
-不需要前面的安装，直接运行。
-```
-docker run --gpus all -it --network=host --rm registry.cn-beijing.aliyuncs.com/codewithgpu2/lipku-metahuman-stream:vjo1Y6NJ3N
-```
-代码在/root/metahuman-stream，先git pull拉一下最新代码，然后执行命令同第2、3步 
 
-另外提供autodl镜像： 
-https://www.codewithgpu.com/i/lipku/metahuman-stream/base  
-[autodl教程](autodl/README.md)
-
-
-## 5. ernerf数字人模型文件
-可以替换成自己训练的模型(https://github.com/Fictionarry/ER-NeRF)
-```python
-.
-├── data
-│   ├── data_kf.json
-│   ├── au.csv			
-│   ├── pretrained
-│   └── └── ngp_kf.pth
-
-```
-
-## 6. 性能分析
-1. 帧率  
-在Tesla T4显卡上测试整体fps为18左右，如果去掉音视频编码推流，帧率在20左右。用4090显卡可以达到40多帧/秒。  
-优化：新开一个线程运行音视频编码推流  
-2. 延时  
-整体延时3s左右  
-（1）tts延时1.7s左右，目前用的edgetts，需要将每句话转完后一次性输入，可以优化tts改成流式输入  
-（2）wav2vec延时0.4s，需要缓存18帧音频做计算 
-（3）srs转发延时，设置srs服务器减少缓冲延时。具体配置可看 https://ossrs.net/lts/zh-cn/docs/v5/doc/low-latency
-  
 
