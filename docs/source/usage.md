@@ -36,16 +36,16 @@ python app.py --fullbody --fullbody_img data/fullbody/img --fullbody_offset_x 10
 ```
 - --fullbody_width、--fullbody_height 全身视频的宽、高
 - --W、--H 训练视频的宽、高  
-- ernerf训练第三步torso如果训练的不好，在拼接处会有接缝。可以在上面的命令加上--torso_imgs data/xxx/torso_imgs，torso不用模型推理，直接用训练数据集里的torso图片。这种方式可能头颈处会有些人工痕迹。
+- ernerf训练第三步torso如果训练的不好，在拼接处会有接缝。可以在上面的命令加上--torso_imgs data/xxx/torso_imgs --preload 1，torso不用模型推理，直接用训练数据集里的torso图片。这种方式可能头颈处会有些人工痕迹。
 
 ##### 替换成自己的数字人
 替换成自己训练的模型<https://github.com/Fictionarry/ER-NeRF>
 ```bash
 ├── data
-│   ├── data_kf.json
+│   ├── data_kf.json （对应训练数据中的transforms_train.json）
 │   ├── au.csv			
 │   ├── pretrained
-│   └── └── ngp_kf.pth
+│   └── └── ngp_kf.pth （对应训练后的模型ngp_ep00xx.pth）
 
 ```
 
@@ -126,7 +126,7 @@ python app.py --transport rtcpush --push_url 'http://localhost:1985/rtc/v1/whip/
 
 #### 3.2.3 rtmp推送到srs
 - 安装rtmpstream库  
-参照<https://github.com/lipku/python_rtmpstream>
+<https://github.com/lipku/python_rtmpstream>
 
 - 启动srs
 ```
@@ -173,7 +173,7 @@ ffmpeg -i xxx.mp4 -vn -acodec pcm_s16le -ac 1 -ar 16000 data/customvideo/audio.w
 python app.py --transport webrtc --customvideo_config data/custom_config.json
 ```
 - 4，打开http://<serverip>:8010/webrtcapi-custom.html  
-填写custom_config.json中配置的audiotype，点击切换视频
+填写custom_config.json中配置的audiotype，点击切换视频。如果是audiotype为1的静音视频会自动切换，不需要手动点击。
 
 ### 3.5 使用LLM模型进行数字人对话
 
@@ -181,8 +181,14 @@ python app.py --transport webrtc --customvideo_config data/custom_config.json
 
 用浏览器打开http://serverip:8010/rtcpushchat.html
 
+### 3.6 多会话
+```
+python app.py --transport webrtc  --max_session 3 
+```
+通过max_session指定最多运行几个会话。然后打开多个webrtcapi.html
 
-### 3.6 更多功能集成
+
+### 3.7 更多功能集成
 - 语音输入、知识库问答 [Fay](https://github.com/xszyou/Fay)
 - 虚拟主播，字幕抓取 [Luna](https://github.com/Ikaros-521/AI-Vtuber)
 

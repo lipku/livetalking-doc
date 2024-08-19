@@ -15,3 +15,4 @@ Contents
    quickstart
    usage
    docker
+   api
