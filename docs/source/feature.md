@@ -1,5 +1,7 @@
 Real time interactive streaming digital human， realize audio video synchronous dialogue. It can basically achieve commercial effects.  
-实时交互流式数字人，实现音视频同步对话。基本可以达到商用效果
+实时交互流式数字人，实现音视频同步对话。基本可以达到商用效果  
+
+项目地址:<https://github.com/lipku/metahuman-stream>  
 
 [ernerf效果](https://www.bilibili.com/video/BV1PM4m1y7Q2/)  
 [musetalk效果](https://www.bilibili.com/video/BV1gm421N7vQ/)  

@@ -1,4 +1,4 @@
-Welcome to LiveTaking documentation!
+Welcome to metahuman-stream documentation!
 ======================================
 
 .. note::
@@ -16,3 +16,4 @@ Contents
    usage
    docker
    api
+   service

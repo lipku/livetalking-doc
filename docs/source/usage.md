@@ -28,7 +28,7 @@ ffmpeg -i fullbody.mp4 -vf crop="400:400:100:5" train.mp4 
 用train.mp4训练模型
 - 2.提取全身图片
 ```
-ffmpeg -i fullbody.mp4 -vf fps=25 -qmin 1 -q:v 1 -start_number 0 data/fullbody/img/%d.jpg
+ffmpeg -i fullbody.mp4 -vf fps=25 -qmin 1 -q:v 1 -start_number 0 data/fullbody/img/%08d.png
 ```
 - 3.启动数字人
 ```
@@ -164,7 +164,7 @@ python app.py --tts xtts --REF_FILE data/ref.wav --TTS_SERVER http://localhost:9
 ffmpeg -i xxx.mp4 -s 576x768 -vf fps=25 -qmin 1 -q:v 1 -start_number 0 data/customvideo/image/%08d.png
 ffmpeg -i xxx.mp4 -vn -acodec pcm_s16le -ac 1 -ar 16000 data/customvideo/audio.wav
 ```
-其中-s与输出视频大小一致
+其中-s与推理输出视频大小一致
 - 2，编辑data/custom_config.json  
 指定imgpath和audiopath。  
 设置audiotype，说明：0表示推理视频，不用设置；1表示静音视频，如果不设置默认用推理视频代替; 2以上自定义配置
