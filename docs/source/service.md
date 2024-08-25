@@ -1,10 +1,10 @@
 
-## 6. 收费服务
+## 7. 收费服务
 
 微信：wxwubug 备注（安装服务）   
-email: lipku@foxmail.com
+Email: lipku@foxmail.com
 
-### 6.1 安装服务
+### 7.1 安装服务
 对于安装有问题的用户，提供远程安装服务。
 service	    |charge
 :----		|:--- 

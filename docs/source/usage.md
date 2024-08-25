@@ -39,7 +39,7 @@ python app.py --fullbody --fullbody_img data/fullbody/img --fullbody_offset_x 10
 - ernerf训练第三步torso如果训练的不好，在拼接处会有接缝。可以在上面的命令加上--torso_imgs data/xxx/torso_imgs --preload 1，torso不用模型推理，直接用训练数据集里的torso图片。这种方式可能头颈处会有些人工痕迹。
 
 ##### 替换成自己的数字人
-替换成自己训练的模型<https://github.com/Fictionarry/ER-NeRF>
+替换成自己训练的模型<https://github.com/Fictionarry/ER-NeRF>，训练模型时音频特征要选wav2vec或者hubert
 ```bash
 ├── data
 │   ├── data_kf.json （对应训练数据中的transforms_train.json）
