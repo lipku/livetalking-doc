@@ -138,6 +138,15 @@ python app.py --transport rtmp --push_url 'rtmp://localhost/live/livestream'
 ```
 用浏览器打开http://serverip:8010/echoapi.html
 
+**rtmp也可以通过rtcpush到srs，由srs转成rtmp流**
+```
+export CANDIDATE='<服务器外网ip>'
+docker run --rm --env CANDIDATE=$CANDIDATE \
+  -p 1935:1935 -p 8080:8080 -p 1985:1985 -p 8000:8000/udp \
+  registry.cn-hangzhou.aliyuncs.com/ossrs/srs:5 \
+  objs/srs -c conf/rtc2rtmp
+```
+
 ### 3.3 TTS模型
 支持edgetts、gpt-sovits、xtts，默认用edgetts
 #### 3.3.1 gpt-sovits
