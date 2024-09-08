@@ -9,14 +9,14 @@ bash install.sh
 ```
 
 ## 2. 下载模型文件
-从 [GPT-SoVITS Models](https://huggingface.co/lj1995/GPT-SoVITS) 下载预训练模型，并将它们放置在 `GPT_SoVITS/GPT_SoVITS/pretrained_models` 中
 在GPT_SoVITS目录下执行
 ```python
 from huggingface_hub import snapshot_download
 snapshot_download('lj1995/GPT-SoVITS', local_dir='GPT_SoVITS/pretrained_models')
 ```
+或者手动从 [GPT-SoVITS Models](https://huggingface.co/lj1995/GPT-SoVITS) 下载预训练模型，并将它们放置在 `GPT_SoVITS/GPT_SoVITS/pretrained_models` 中
 
-文件目录如下
+最终文件目录如下
 ```
 pretrained_models/
     --chinese-hubert-base
@@ -30,7 +30,6 @@ pretrained_models/
 ## 3. 启动api服务
 ```
 python api_v2.py
-python GPT_SoVITS/inference_webui.py
 ```
 
 
