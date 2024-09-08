@@ -1,37 +1,40 @@
-# 采用gpt-sovits方案，bert-sovits适合长音频训练，gpt-sovits运行短音频快速推理
+采用gpt-sovits方案，bert-sovits适合长音频训练，gpt-sovits运行短音频快速推理
 ## 部署tts推理
 git clone https://github.com/RVC-Boss/GPT-SoVITS.git
-git checkout fast_inference_
 ## 1. 安装依赖库
 ```
-conda create -n GPTSoVits python=3.9
-conda activate GPTSoVits
+conda create -n sovits python=3.10
+conda activate sovits
 bash install.sh
 ```
-从 [GPT-SoVITS Models](https://huggingface.co/lj1995/GPT-SoVITS) 下载预训练模型，并将它们放置在 `GPT_SoVITS/GPT_SoVITS/pretrained_models` 中
 
-注意
+## 2. 下载模型文件
+从 [GPT-SoVITS Models](https://huggingface.co/lj1995/GPT-SoVITS) 下载预训练模型，并将它们放置在 `GPT_SoVITS/GPT_SoVITS/pretrained_models` 中
+在GPT_SoVITS目录下执行
+```python
+from huggingface_hub import snapshot_download
+snapshot_download('lj1995/GPT-SoVITS', local_dir='GPT_SoVITS/pretrained_models')
 ```
-是将 GPT-SoVITS  的模型文件放入 pretrained_models目录中
-```
-如下
+
+文件目录如下
 ```
 pretrained_models/
---chinese-hubert-base
---chinese-roberta-wwm-ext-large
-s1bert25hz-2kh-longer-epoch=68e-step=50232.ckpt
-s2D488k.pth
-s2G488k.pth
+    --chinese-hubert-base
+    --chinese-roberta-wwm-ext-large
+    --gsv-v2final-pretrained
+    s1bert25hz-2kh-longer-epoch=68e-step=50232.ckpt
+    s2D488k.pth
+    s2G488k.pth
 ```
 
-## 3. 启动
-### 3.1 启动webui界面（测试效果用）
+## 3. 启动api服务
+```
+python api_v2.py
 python GPT_SoVITS/inference_webui.py
-
-### 3.2 启动api服务: 
-python api_v3.py
+```
 
 
+--- 
 ## 4. 接口说明  
 
 ### 4.1 Text-to-Speech
@@ -68,36 +71,6 @@ POST:
 }
 ```
 
-## 部署tts训练
-https://github.com/RVC-Boss/GPT-SoVITS  
-切换自己训练的模型  
-### 切换GPT模型
-
-endpoint: `/set_gpt_weights`
-
-GET:
-```
-http://127.0.0.1:9880/set_gpt_weights?weights_path=GPT_SoVITS/pretrained_models/xxx.ckpt
-```
-RESP: 
-成功: 返回"success", http code 200
-失败: 返回包含错误信息的 json, http code 400
-
-
-### 切换Sovits模型
-
-endpoint: `/set_sovits_weights`
-
-GET:
-```
-http://127.0.0.1:9880/set_sovits_weights?weights_path=GPT_SoVITS/pretrained_models/xxx.pth
-```
-
-RESP: 
-成功: 返回"success", http code 200
-失败: 返回包含错误信息的 json, http code 400
-    
-"""
 
 ## 如果你需要使用autodl 进行部署 
 请使用  https://www.codewithgpu.com/i/RVC-Boss/GPT-SoVITS/GPT-SoVITS 作为基础镜像你能快速进行部署

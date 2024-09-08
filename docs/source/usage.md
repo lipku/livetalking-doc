@@ -148,9 +148,9 @@ docker run --rm --env CANDIDATE=$CANDIDATE \
 ```
 
 ### 3.3 TTS模型
-支持edgetts、gpt-sovits、xtts，默认用edgetts
+支持edgetts、gpt-sovits、xtts、cosyvoice，默认用edgetts
 #### 3.3.1 gpt-sovits
-服务部署参照[gpt-sovits](/tts/README.md)  
+服务部署参照[gpt-sovits](tts/gptsovits.md)  
 运行
 ```
 python app.py --tts gpt-sovits --TTS_SERVER http://127.0.0.1:9880 --REF_FILE data/ref.wav --REF_TEXT xxx
@@ -166,6 +166,14 @@ docker run --gpus=all -e COQUI_TOS_AGREED=1 --rm -p 9000:80 ghcr.io/coqui-ai/xtt
 ```
 python app.py --tts xtts --REF_FILE data/ref.wav --TTS_SERVER http://localhost:9000
 ```
+
+#### 3.3.3 cosyvoice
+服务部署参照[cosyvoice](tts/cosyvoice.md)  
+运行
+```
+python app.py --tts cosyvoice --TTS_SERVER http://127.0.0.1:50000 --REF_FILE ref.wav --REF_TEXT xxx
+```
+REF_TEXT为REF_FILE中语音内容，时长不宜过长
 
 ### 3.4 视频编排
 - 1，生成素材

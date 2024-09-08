@@ -48,6 +48,10 @@ python main.py data/ --workspace workspace/ -O --iters 100000 --asr_model cpiers
 ```
 --enable-libx264
 ```
+```
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge
+conda install ffmpeg
+```
 8. 替换自己训练的模型
 ```python
 .
