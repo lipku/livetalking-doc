@@ -153,9 +153,9 @@ docker run --rm --env CANDIDATE=$CANDIDATE \
 服务部署参照[gpt-sovits](tts/gptsovits.md)  
 运行
 ```
-python app.py --tts gpt-sovits --TTS_SERVER http://127.0.0.1:9880 --REF_FILE data/ref.wav --REF_TEXT xxx
+python app.py --tts gpt-sovits --TTS_SERVER http://127.0.0.1:9880 --REF_FILE ref.wav --REF_TEXT xxx
 ```
-REF_TEXT为REF_FILE中语音内容，时长不宜过长
+REF_TEXT为REF_FILE中语音内容，时长不宜过长。此处wav文件需要放在tts服务端，相对tts服务的路径。
 
 #### 3.3.2 xtts
 运行xtts服务，参照<https://github.com/coqui-ai/xtts-streaming-server>
@@ -173,7 +173,7 @@ python app.py --tts xtts --REF_FILE data/ref.wav --TTS_SERVER http://localhost:9
 ```
 python app.py --tts cosyvoice --TTS_SERVER http://127.0.0.1:50000 --REF_FILE ref.wav --REF_TEXT xxx
 ```
-REF_TEXT为REF_FILE中语音内容，时长不宜过长
+REF_TEXT为REF_FILE中语音内容，时长不宜过长。
 
 ### 3.4 视频编排
 - 1，生成素材

@@ -9,7 +9,7 @@ conda create -n nerfstream python=3.10
 conda activate nerfstream
 conda install pytorch==1.12.1 torchvision==0.13.1 cudatoolkit=11.3 -c pytorch
 pip install -r requirements.txt
-#如果只用musetalk或者wav2lip模型，不需要安装下面的库
+#如果不训练ernerf模型，不需要安装下面的库
 pip install "git+https://github.com/facebookresearch/pytorch3d.git"
 pip install tensorflow-gpu==2.8.0
 pip install --upgrade "protobuf<=3.20.1"
