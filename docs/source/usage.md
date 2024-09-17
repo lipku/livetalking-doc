@@ -204,8 +204,15 @@ python app.py --transport webrtc  --max_session 3
 ```
 通过max_session指定最多运行几个会话。然后打开多个webrtcapi.html
 
+### 3.7 语音输入
+根据webrtc或rtcpush传输模式分别打开webrtcapi-asr.html或rtcpushapi-asr.html  
+先点击最上面的start按钮连接视频；然后点击下面语音采集框的连接、开始按钮；开始语音采集并驱动数字人播报  
+如果浏览器不能采集语音，在浏览器地址框输入edge://flags/#unsafely-treat-insecure-origin-as-secure，将服务端网址输入下面框中并重启浏览器
+![img.png](./assets/audio-input-browser.jpg)
+如果需要安装自己的asr服务端，请参照<https://github.com/modelscope/FunASR/blob/main/runtime/python/websocket/README.md>
 
-### 3.7 更多功能集成
+
+### 3.8 更多功能集成
 - 语音输入、知识库问答 [Fay](https://github.com/xszyou/Fay)
 - 虚拟主播，字幕抓取 [Luna](https://github.com/Ikaros-521/AI-Vtuber)
 
