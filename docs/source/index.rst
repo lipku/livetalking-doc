@@ -1,4 +1,4 @@
-Welcome to metahuman-stream documentation!
+Welcome to livetalking documentation!
 ======================================
 
 .. note::

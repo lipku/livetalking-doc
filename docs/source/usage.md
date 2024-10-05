@@ -194,9 +194,12 @@ python app.py --transport webrtc --customvideo_config data/custom_config.json
 
 ### 3.5 使用LLM模型进行数字人对话
 
-目前借鉴数字人对话系统[LinlyTalker](https://github.com/Kedreamix/Linly-Talker)的方式，LLM模型支持Chatgpt,Qwen和GeminiPro。需要在app.py中填入自己的api_key。    
+目前调用阿里云的大模型api实现，与openai接口兼容。支持llm流式输出。    
+```
+export DASHSCOPE_API_KEY=<your_api_key>
+```
 
-用浏览器打开http://serverip:8010/rtcpushchat.html
+根据传输模式用浏览器打开http://serverip:8010/rtcpushchat.html或http://serverip:8010/webrtcchat.html
 
 ### 3.6 多会话
 ```

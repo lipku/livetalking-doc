@@ -31,7 +31,11 @@ pretrained_models/
 ```
 python api_v2.py
 ```
-
+如果有错误提示找不到cmudict
+```
+import nltk
+nltk.download('cmudict')
+```
 
 --- 
 ## 4. 接口说明  
