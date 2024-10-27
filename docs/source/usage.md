@@ -106,7 +106,7 @@ python genavatar.py --video_path xxx.mp4
 ```
 python app.py --transport webrtc
 ```
-服务端需要开放端口 tcp:8010; udp:50000~60000  
+服务端需要开放端口 tcp:8010; udp:全开放 
 用浏览器打开http://serverip:8010/webrtcapi.html
 
 #### 3.2.2 webrtc推送到srs
