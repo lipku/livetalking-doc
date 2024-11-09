@@ -12,3 +12,4 @@ linux平台安装 | ¥500
 windows平台安装 | ¥700
 ernerf模型训练 | ¥500
 
+由于近期edgetts不一定能使用，如果需要部署gpt-sovits，单独加¥200
