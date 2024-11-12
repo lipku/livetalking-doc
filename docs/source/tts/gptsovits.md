@@ -3,7 +3,7 @@
 git clone https://github.com/RVC-Boss/GPT-SoVITS.git
 ## 1. 安装依赖库
 ```
-conda create -n sovits python=3.10
+conda create -n sovits python=3.9
 conda activate sovits
 bash install.sh
 ```
