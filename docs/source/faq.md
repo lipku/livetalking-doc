@@ -59,7 +59,7 @@ conda install ffmpeg
 ```
 8. musetalk预处理数字人报错
 ```
-'Adafactor is already registered in optimizer at torch.optim'
+'MMCV==2.2.0 is used but incompatible'
 ```
 将pip版本降低到24.0
 ```
