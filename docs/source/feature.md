@@ -8,7 +8,7 @@ Real time interactive streaming digital human， realize audio video synchronous
 [wav2lip效果](https://www.bilibili.com/video/BV1Bw4m1e74P/)
 
 ## 0. Features
-1. 支持多种数字人模型: ernerf、musetalk、wav2lip
+1. 支持多种数字人模型: ernerf、musetalk、wav2lip、Ultralight-Digital-Human
 2. 支持声音克隆
 3. 支持数字人说话被打断
 4. 支持全身视频拼接

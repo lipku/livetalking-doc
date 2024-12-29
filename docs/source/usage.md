@@ -3,7 +3,7 @@
 分别选择数字人模型、传输方式、tts模型
 
 ### 3.1 数字人模型
-支持3种模型：ernerf、musetalk、wav2lip，默认用ernerf
+支持4种模型：ernerf、musetalk、wav2lip、Ultralight-Digital-Human，默认用ernerf
 #### 3.1.1 ER-Nerf
 ```
 python app.py --model ernerf
@@ -50,7 +50,7 @@ python app.py --fullbody --fullbody_img data/fullbody/img --fullbody_offset_x 10
 ```
 
 #### 3.1.2 模型用musetalk
-暂不支持rtmp推送
+不支持rtmp推送
 - 安装依赖库
 ```bash
 conda install ffmpeg
@@ -83,7 +83,7 @@ python simple_musetalk.py --avatar_id 4  --file D:\\ok\\test.mp4
 ```
 
 #### 3.1.3 模型用wav2lip
-暂不支持rtmp推送
+不支持rtmp推送
 - 下载模型  
 下载wav2lip运行需要的模型，链接:<https://pan.baidu.com/s/1yOsQ06-RIDTJd3HFCw4wtA> 密码: ltua
 将s3fd.pth拷到本项目wav2lip/face_detection/detection/sfd/s3fd.pth, 将wav2lip.pth拷到本项目的models下  
@@ -98,6 +98,21 @@ cd wav2lip
 python genavatar.py --video_path xxx.mp4
 运行后将results/avatars下文件拷到本项目的data/avatars下
 ```
+
+#### 3.1.3 模型用Ultralight-Digital-Human
+不支持rtmp推送
+- 制作avatar  
+```bash
+cd ultralight
+python genavatar.py --dataset data_dir/  --checkpoint xxx.pth  #data_dir为训练时数据处理后的文件夹
+运行后将results/avatars下文件拷到本项目的data/avatars下
+```
+- 运行  
+python app.py --transport webrtc --model ultralight --avatar_id ultralight_avatar1  
+用浏览器打开http://serverip:8010/webrtcapi.html  
+可以设置--batch_size 提高显卡利用率，设置--avatar_id 运行不同的数字人  
+测试下来效果一般，主要是不说话时嘴巴不稳定。如果哪里用的不对欢迎提建议
+
 
 ### 3.2 传输模式
 支持webrtc、rtcpush、rtmp，默认用rtcpush
@@ -194,7 +209,7 @@ python app.py --transport webrtc --customvideo_config data/custom_config.json
 
 ### 3.5 使用LLM模型进行数字人对话
 
-目前调用阿里云的大模型api实现，与openai接口兼容。支持llm流式输出。    
+目前调用千问大模型api实现，与openai接口兼容。支持llm流式输出。    
 ```
 export DASHSCOPE_API_KEY=<your_api_key>
 ```
