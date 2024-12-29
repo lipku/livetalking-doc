@@ -99,9 +99,10 @@ python genavatar.py --video_path xxx.mp4
 运行后将results/avatars下文件拷到本项目的data/avatars下
 ```
 
-#### 3.1.3 模型用Ultralight-Digital-Human
+#### 3.1.4 模型用Ultralight-Digital-Human
 不支持rtmp推送
 - 制作avatar  
+先根据项目 <https://github.com/anliyuan/Ultralight-Digital-Human> 训练模型，然后在本项目下
 ```bash
 cd ultralight
 python genavatar.py --dataset data_dir/  --checkpoint xxx.pth  #data_dir为训练时数据处理后的文件夹
