@@ -9,4 +9,5 @@ docker run --gpus all -it --network=host --rm registry.cn-beijing.aliyuncs.com/c
 - autodl镜像：<https://www.codewithgpu.com/i/lipku/metahuman-stream/base>  
 [autodl教程](autodl/README.md)
 - ucloud镜像 <https://www.compshare.cn/images-detail?ImageID=compshareImage-14pa8x8ucwr9&ImageType=Community&referral_code=3XW3852OBmnD089hMMrtuU&ytag=lipku_github>  
-可以开放任意端口，不需要单独运行srs服务  
+可以开放任意端口，不需要单独部署srs服务  
+[ucloud教程](ucloud/ucloud.md) 
