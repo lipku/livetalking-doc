@@ -3,10 +3,10 @@
 分别选择数字人模型、传输方式、tts模型
 
 ### 3.1 数字人模型
-支持4种模型：ernerf、musetalk、wav2lip、Ultralight-Digital-Human，默认用ernerf
+支持4种模型：ernerf、musetalk、wav2lip、Ultralight-Digital-Human
 #### 3.1.1 ER-Nerf
 ```
-python app.py --model ernerf
+python app.py --transport webrtc --model ernerf
 ```
 支持如下参数配置
 ##### 3.1.1.1 音频特征用hubert
@@ -85,17 +85,18 @@ python simple_musetalk.py --avatar_id 4  --file D:\\ok\\test.mp4
 #### 3.1.3 模型用wav2lip
 不支持rtmp推送
 - 下载模型  
-下载wav2lip运行需要的模型，链接:<https://pan.baidu.com/s/1yOsQ06-RIDTJd3HFCw4wtA> 密码: ltua
-将s3fd.pth拷到本项目wav2lip/face_detection/detection/sfd/s3fd.pth, 将wav2lip.pth拷到本项目的models下  
-数字人模型文件 wav2lip_avatar1.tar.gz, 解压后将整个文件夹拷到本项目的data/avatars下
+下载wav2lip运行需要的模型，链接:<https://pan.baidu.com/s/1yOsQ06-RIDTJd3HFCw4wtA> 密码: ltua  
+将s3fd.pth拷到本项目wav2lip/face_detection/detection/sfd/s3fd.pth;  
+将wav2lip384.pth拷到本项目的models下, 重命名为wav2lip.pth;  
+将wav2lip384_avatar1.tar.gz解压后整个文件夹拷到本项目的data/avatars下
 - 运行  
-python app.py --transport webrtc --model wav2lip --avatar_id wav2lip_avatar1  
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip384_avatar1  
 用浏览器打开http://serverip:8010/webrtcapi.html  
 可以设置--batch_size 提高显卡利用率，设置--avatar_id 运行不同的数字人
 ##### 替换成自己的数字人
 ```bash
 cd wav2lip
-python genavatar.py --video_path xxx.mp4
+python genavatar.py --video_path xxx.mp4 --img_size 384 --avatar_id wav2lip384_avatar1
 运行后将results/avatars下文件拷到本项目的data/avatars下
 ```
 
@@ -122,7 +123,7 @@ python app.py --transport webrtc --model ultralight --avatar_id ultralight_avata
 ```
 python app.py --transport webrtc
 ```
-服务端需要开放端口 tcp:8010; udp:全开放 
+<font color=red>服务端需要开放端口 tcp:8010; udp:1-65536 </font>
 用浏览器打开http://serverip:8010/webrtcapi.html
 
 #### 3.2.2 webrtc推送到srs
@@ -138,6 +139,7 @@ docker run --rm --env CANDIDATE=$CANDIDATE \
 ```python
 python app.py --transport rtcpush --push_url 'http://localhost:1985/rtc/v1/whip/?app=live&stream=livestream'
 ```
+<font color=red>服务端需要开放端口 tcp:8000,8010,1985; udp:8000</font>
 用浏览器打开http://serverip:8010/rtcpushapi.html
 
 #### 3.2.3 rtmp推送到srs
