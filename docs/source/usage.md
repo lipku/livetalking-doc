@@ -166,7 +166,7 @@ docker run --rm --env CANDIDATE=$CANDIDATE \
 ```
 
 ### 3.3 TTS模型
-支持edgetts、gpt-sovits、xtts、cosyvoice，默认用edgetts
+支持edgetts、gpt-sovits、fish-speech、xtts、cosyvoice，默认用edgetts
 #### 3.3.1 gpt-sovits
 服务部署参照[gpt-sovits](tts/gptsovits.md)  
 运行
@@ -175,15 +175,13 @@ python app.py --tts gpt-sovits --TTS_SERVER http://127.0.0.1:9880 --REF_FILE ref
 ```
 REF_TEXT为REF_FILE中语音内容，时长不宜过长。此处wav文件需要放在tts服务端，相对tts服务的路径。
 
-#### 3.3.2 xtts
-运行xtts服务，参照<https://github.com/coqui-ai/xtts-streaming-server>
+#### 3.3.2 fish-speech
+服务部署参照[fish-speech](tts/fishspeech.md)  
+运行
 ```
-docker run --gpus=all -e COQUI_TOS_AGREED=1 --rm -p 9000:80 ghcr.io/coqui-ai/xtts-streaming-server:latest
+python app.py --tts fishtts --TTS_SERVER http://127.0.0.1:8080 --REF_FILE test
 ```
-然后运行，其中ref.wav为需要克隆的声音文件
-```
-python app.py --tts xtts --REF_FILE data/ref.wav --TTS_SERVER http://localhost:9000
-```
+--REF_FILE为fish-speech服务端的referenceid
 
 #### 3.3.3 cosyvoice
 服务部署参照[cosyvoice](tts/cosyvoice.md)  
@@ -192,6 +190,16 @@ python app.py --tts xtts --REF_FILE data/ref.wav --TTS_SERVER http://localhost:9
 python app.py --tts cosyvoice --TTS_SERVER http://127.0.0.1:50000 --REF_FILE ref.wav --REF_TEXT xxx
 ```
 REF_TEXT为REF_FILE中语音内容，时长不宜过长。
+
+#### 3.3.4 xtts
+运行xtts服务，参照<https://github.com/coqui-ai/xtts-streaming-server>
+```
+docker run --gpus=all -e COQUI_TOS_AGREED=1 --rm -p 9000:80 ghcr.io/coqui-ai/xtts-streaming-server:latest
+```
+然后运行，其中ref.wav为需要克隆的声音文件
+```
+python app.py --tts xtts --REF_FILE data/ref.wav --TTS_SERVER http://localhost:9000
+```
 
 ### 3.4 视频编排
 - 1，生成素材
