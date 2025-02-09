@@ -6,7 +6,7 @@ ucloud可以开放任意端口，直接用镜像部署一个实例即可运行�
 ```
 conda activate nerfstream
 cd /workspace/LiveTalking
-python app.py --transport webrtc
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip384_avatar1
 ```
 在浏览器里打开 http://serverip:8010/webrtcapi.html  
 点击start，能看到数字人视频。然后输入文字并点击send，数字人会播报输入文字
@@ -17,8 +17,7 @@ python app.py --transport webrtc
  1.1 启动tts服务
 ```
 conda activate sovits
-cd /workspace/GP
-T-SoVITS
+cd /workspace/GPT-SoVITS
 python api_v2.py
 ```
 
@@ -38,7 +37,7 @@ python app.py --model musetalk --transport webrtc --tts gpt-sovits --TTS_SERVER 
 ```
 * **wav2lip**：
 ```
-python app.py --transport webrtc --model wav2lip --avatar_id wav2lip_avatar1  --tts gpt-sovits --TTS_SERVER http://127.0.0.1:9880 --REF_FILE ~/zero_shot_prompt.wav --REF_TEXT 希望你以后能够做的比我还好呦
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip384_avatar1  --tts gpt-sovits --TTS_SERVER http://127.0.0.1:9880 --REF_FILE ~/zero_shot_prompt.wav --REF_TEXT 希望你以后能够做的比我还好呦
 ```
 
 2，最后在浏览器里打开 http://serverip:8010/webrtcapi.html  
