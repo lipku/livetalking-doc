@@ -87,16 +87,16 @@ python simple_musetalk.py --avatar_id 4  --file D:\\ok\\test.mp4
 - 下载模型  
 下载wav2lip运行需要的模型，链接:<https://pan.baidu.com/s/1yOsQ06-RIDTJd3HFCw4wtA> 密码: ltua  
 将s3fd.pth拷到本项目wav2lip/face_detection/detection/sfd/s3fd.pth;  
-将wav2lip384.pth拷到本项目的models下, 重命名为wav2lip.pth;  
-将wav2lip384_avatar1.tar.gz解压后整个文件夹拷到本项目的data/avatars下
+将wav2lip256.pth拷到本项目的models下, 重命名为wav2lip.pth;  
+将wav2lip256_avatar1.tar.gz解压后整个文件夹拷到本项目的data/avatars下
 - 运行  
-python app.py --transport webrtc --model wav2lip --avatar_id wav2lip384_avatar1  
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1  
 用浏览器打开http://serverip:8010/webrtcapi.html  
 可以设置--batch_size 提高显卡利用率，设置--avatar_id 运行不同的数字人
 ##### 替换成自己的数字人
 ```bash
 cd wav2lip
-python genavatar.py --video_path xxx.mp4 --img_size 384 --avatar_id wav2lip384_avatar1
+python genavatar.py --video_path xxx.mp4 --img_size 256 --avatar_id wav2lip256_avatar1
 运行后将results/avatars下文件拷到本项目的data/avatars下
 ```
 
