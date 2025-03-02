@@ -191,7 +191,17 @@ python app.py --tts cosyvoice --TTS_SERVER http://127.0.0.1:50000 --REF_FILE ref
 ```
 REF_TEXT为REF_FILE中语音内容，时长不宜过长。
 
-#### 3.3.4 xtts
+#### 3.3.4 腾讯语音服务
+运行
+```shell
+export TENCENT_APPID=xxx #appid
+export TENCENT_SECRET_KEY=xxx  #seceret_key
+export TENCENT_SECRET_ID=xxx #seceret_id
+python app.py --tts tencent  --REF_FILE 101001
+```
+REF_FILE为音色ID，可以上<https://cloud.tencent.com/document/product/1073/92668>查看音色列表，也可以是自己克隆的音色id
+
+#### 3.3.5 xtts
 运行xtts服务，参照<https://github.com/coqui-ai/xtts-streaming-server>
 ```
 docker run --gpus=all -e COQUI_TOS_AGREED=1 --rm -p 9000:80 ghcr.io/coqui-ai/xtts-streaming-server:latest
