@@ -4,49 +4,23 @@
 
 ### 3.1 数字人模型
 支持4种模型：ernerf、musetalk、wav2lip、Ultralight-Digital-Human
-#### 3.1.1 ER-Nerf
-```
-python app.py --transport webrtc --model ernerf
-```
-支持如下参数配置
-##### 3.1.1.1 音频特征用hubert
-默认用的wav2vec，如果训练模型时用的hubert提取音频特征，用如下命令启动数字人
-```
-python app.py --asr_model facebook/hubert-large-ls960-ft 
-```
 
-##### 3.1.1.2 设置头部背景图片
-```
-python app.py --bg_img bc.jpg 
-```
-
-##### 3.1.1.3 全身视频贴回
--  1.切割训练用的视频
-```
-ffmpeg -i fullbody.mp4 -vf crop="400:400:100:5" train.mp4 
-```
-用train.mp4训练模型
-- 2.提取全身图片
-```
-ffmpeg -i fullbody.mp4 -vf fps=25 -qmin 1 -q:v 1 -start_number 0 data/fullbody/img/%08d.png
-```
-- 3.启动数字人
-```
-python app.py --fullbody --fullbody_img data/fullbody/img --fullbody_offset_x 100 --fullbody_offset_y 5 --fullbody_width 580 --fullbody_height 1080 --W 400 --H 400
-```
-- --fullbody_width、--fullbody_height 全身视频的宽、高
-- --W、--H 训练视频的宽、高  
-- ernerf训练第三步torso如果训练的不好，在拼接处会有接缝。可以在上面的命令加上--torso_imgs data/xxx/torso_imgs --preload 1，torso不用模型推理，直接用训练数据集里的torso图片。这种方式可能头颈处会有些人工痕迹。
-
+#### 3.1.1 模型用wav2lip
+不支持rtmp推送
+- 下载模型  
+下载wav2lip运行需要的模型，链接:<https://pan.baidu.com/s/1yOsQ06-RIDTJd3HFCw4wtA> 密码: ltua  
+将s3fd.pth拷到本项目wav2lip/face_detection/detection/sfd/s3fd.pth;  
+将wav2lip256.pth拷到本项目的models下, 重命名为wav2lip.pth;  
+将wav2lip256_avatar1.tar.gz解压后整个文件夹拷到本项目的data/avatars下
+- 运行  
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1  
+用浏览器打开http://serverip:8010/webrtcapi.html  
+可以设置--batch_size 提高显卡利用率，设置--avatar_id 运行不同的数字人
 ##### 替换成自己的数字人
-替换成自己训练的模型<https://github.com/Fictionarry/ER-NeRF>，训练模型时音频特征要选wav2vec或者hubert
 ```bash
-├── data
-│   ├── data_kf.json （对应训练数据中的transforms_train.json）
-│   ├── au.csv			
-│   ├── pretrained
-│   └── └── ngp_kf.pth （对应训练后的模型ngp_ep00xx.pth）
-
+cd wav2lip
+python genavatar.py --video_path xxx.mp4 --img_size 256 --avatar_id wav2lip256_avatar1
+运行后将results/avatars下文件拷到本项目的data/avatars下
 ```
 
 #### 3.1.2 模型用musetalk
@@ -82,22 +56,49 @@ python simple_musetalk.py --avatar_id 4  --file D:\\ok\\test.mp4
 支持视频和图片生成 会自动生成到data的avatars目录下
 ```
 
-#### 3.1.3 模型用wav2lip
-不支持rtmp推送
-- 下载模型  
-下载wav2lip运行需要的模型，链接:<https://pan.baidu.com/s/1yOsQ06-RIDTJd3HFCw4wtA> 密码: ltua  
-将s3fd.pth拷到本项目wav2lip/face_detection/detection/sfd/s3fd.pth;  
-将wav2lip256.pth拷到本项目的models下, 重命名为wav2lip.pth;  
-将wav2lip256_avatar1.tar.gz解压后整个文件夹拷到本项目的data/avatars下
-- 运行  
-python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1  
-用浏览器打开http://serverip:8010/webrtcapi.html  
-可以设置--batch_size 提高显卡利用率，设置--avatar_id 运行不同的数字人
+#### 3.1.3 ER-Nerf
+```
+python app.py --transport webrtc --model ernerf
+```
+支持如下参数配置
+##### 3.1.3.1 音频特征用hubert
+默认用的wav2vec，如果训练模型时用的hubert提取音频特征，用如下命令启动数字人
+```
+python app.py --asr_model facebook/hubert-large-ls960-ft 
+```
+
+##### 3.1.3.2 设置头部背景图片
+```
+python app.py --bg_img bc.jpg 
+```
+
+##### 3.1.3.3 全身视频贴回
+-  1.切割训练用的视频
+```
+ffmpeg -i fullbody.mp4 -vf crop="400:400:100:5" train.mp4 
+```
+用train.mp4训练模型
+- 2.提取全身图片
+```
+ffmpeg -i fullbody.mp4 -vf fps=25 -qmin 1 -q:v 1 -start_number 0 data/fullbody/img/%08d.png
+```
+- 3.启动数字人
+```
+python app.py --fullbody --fullbody_img data/fullbody/img --fullbody_offset_x 100 --fullbody_offset_y 5 --fullbody_width 580 --fullbody_height 1080 --W 400 --H 400
+```
+- --fullbody_width、--fullbody_height 全身视频的宽、高
+- --W、--H 训练视频的宽、高  
+- ernerf训练第三步torso如果训练的不好，在拼接处会有接缝。可以在上面的命令加上--torso_imgs data/xxx/torso_imgs --preload 1，torso不用模型推理，直接用训练数据集里的torso图片。这种方式可能头颈处会有些人工痕迹。
+
 ##### 替换成自己的数字人
+替换成自己训练的模型<https://github.com/Fictionarry/ER-NeRF>，训练模型时音频特征要选wav2vec或者hubert
 ```bash
-cd wav2lip
-python genavatar.py --video_path xxx.mp4 --img_size 256 --avatar_id wav2lip256_avatar1
-运行后将results/avatars下文件拷到本项目的data/avatars下
+├── data
+│   ├── data_kf.json （对应训练数据中的transforms_train.json）
+│   ├── au.csv			
+│   ├── pretrained
+│   └── └── ngp_kf.pth （对应训练后的模型ngp_ep00xx.pth）
+
 ```
 
 #### 3.1.4 模型用Ultralight-Digital-Human
