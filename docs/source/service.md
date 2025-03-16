@@ -8,7 +8,7 @@ Email: lipku@foxmail.com
 对于安装有问题的用户，提供远程安装服务。
 service	    |charge
 :----		|:--- 
-linux平台安装 | ¥500
+linux平台安装 | ¥600
 windows平台安装 | ¥700
 
 ### 7.2 wav2lip高清版
