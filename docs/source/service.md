@@ -1,16 +1,16 @@
+## 7. Paid Services
 
-## 7. 收费服务
-
-微信：wxwubug 备注需求   
+WeChat: wxwubug. Please note your requirements.  
 Email: lipku@foxmail.com
 
-### 7.1 安装服务
-对于安装有问题的用户，提供远程安装服务。
-service	    |charge
-:----		|:--- 
-linux平台安装 | ¥500
-windows平台安装 | ¥700
+### 7.1 Installation Services
+For users who have problems with installation, remote installation services are provided.
 
-### 7.2 wav2lip高清版
-对wav2lip网络结构做了升级优化；音频特征改为hubert；添加前后帧关联处理。效果演示：  
-[![wav2lip](./assets/wav2lip.jpg)](https://www.bilibili.com/video/BV1scwBeyELA "高清wav2lip模型")
+| Service | Charge |
+| :---- | :--- |
+| Installation on Linux platform | ¥600 |
+| Installation on Windows platform | ¥700 |
+
+### 7.2 High-definition Version of wav2lip
+The network structure of wav2lip has been upgraded and optimized; the audio features have been changed to Hubert; the processing of frame correlation before and after has been added. Effect demonstration:  
+[![wav2lip](./assets/wav2lip.jpg)](https://www.bilibili.com/video/BV1scwBeyELA "High-definition wav2lip model")

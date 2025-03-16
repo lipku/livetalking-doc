@@ -1,126 +1,116 @@
-## 5. api接口
-客户端通过http post请求与后台交互
+## 5. API Interfaces
+The client interacts with the backend through HTTP POST requests.
 
-### 5.1 获取视频
-- **接口说明：** 协商获取webrtc视频
-- **接口地址：** /offer
+### 5.1 Get Video
+- **Interface Description:** Negotiate to obtain the WebRTC video.
+- **Interface Address:** /offer
 
-#### 5.1.1 请求参数
-  
-paramter			|type		|required	|desc  
-:----				|:---		|:------	|:---	
-type				|string		|R			|填offer
-sdp				    |string		|R			|webrtc请求参数
+#### 5.1.1 Request Parameters
 
+| Parameter | Type | Required | Description |
+| :---- | :--- | :------ | :--- |
+| type | string | R | Fill in "offer" |
+| sdp | string | R | WebRTC request parameters |
 
-请求示例：
-
-```
-{
-    ‘sdp’: ‘xxxx’,
-    ‘type’: 'offer',
-}
-
-```
-#### 5.1.2 返回数据
-  
-paramter			|type		|required	|desc  
-:----				|:---		|:------	|:---	
-type				|string		|R			|填answer
-sdp				    |string		|R			|webrtc应答参数
-sessionid			|int		|R			|数字人会话id，用于区分多路数字人。后面的接口都需要用该参数
-
-
-返回示例：
+Request Example:
 
 ```
 {
-    ‘sdp’: ‘xxxx’,
-    ‘type’: 'answer',
-    ‘sessionid’: 1,
+    "sdp": "xxxx",
+    "type": "offer"
 }
-
 ```
 
-### 5.2 发送文字
-- **接口说明：** 向数字人发送聊天内容
-- **接口地址：** /human
+#### 5.1.2 Returned Data
 
-#### 5.2.1 请求参数
-  
-paramter			|type		|required	|desc  
-:----				|:---		|:------	|:---	
-sessionid			|int		|O			|数字人会话id，默认为0
-interrupt			|bool		|O			|是否打断数字人当前说话，默认为false
-type				|string		|R			|echo：数字人播报输入文字；chat：与数字人对话
-text				|string		|R			|文字内容
+| Parameter | Type | Required | Description |
+| :---- | :--- | :------ | :--- |
+| type | string | R | Fill in "answer" |
+| sdp | string | R | WebRTC response parameters |
+| sessionid | int | R | Digital human session ID, used to distinguish multiple digital humans. This parameter is required for subsequent interfaces. |
 
-
-请求示例：
+Return Example:
 
 ```
 {
-    ‘text’: ‘hello’,
-    ‘type’: 'echo',
-    ‘interrupt’: true,
-    ‘sessionid’:0
+    "sdp": "xxxx",
+    "type": "answer",
+    "sessionid": 1
 }
-
 ```
 
-### 5.3 切换播放视频
-- **接口说明：** 控制数字人播放自定义视频
-- **接口地址：** /set_audiotype
+### 5.2 Send Text
+- **Interface Description:** Send chat content to the digital human.
+- **Interface Address:** /human
 
-#### 5.3.1 请求参数
-  
-paramter			|type		|required	|desc  
-:----				|:---		|:------	|:---	
-sessionid			|int		|O			|数字人会话id，默认为0
-audiotype			|int		|R			|播放的视频内容，与后台自定义视频对应
-reinit				|bool		|R			|切换的视频是否从头开始播，false为继续上次的播放
+#### 5.2.1 Request Parameters
 
+| Parameter | Type | Required | Description |
+| :---- | :--- | :------ | :--- |
+| sessionid | int | O | Digital human session ID, default is 0 |
+| interrupt | bool | O | Whether to interrupt the digital human's current speech, default is false |
+| type | string | R | echo: The digital human broadcasts the input text; chat: Have a conversation with the digital human |
+| text | string | R | Text content |
 
-请求示例：
+Request Example:
 
 ```
 {
-    ‘audiotype’: 2,
-    ‘reinit’: false,
-    ‘sessionid’:0
+    "text": "hello",
+    "type": "echo",
+    "interrupt": true,
+    "sessionid": 0
 }
-
 ```
 
-### 5.4 录像
-- **接口说明：** 在服务端保存数字人录像,文件地址data/record.mp4
-- **接口地址：** /record
+### 5.3 Switch Playing Video
+- **Interface Description:** Control the digital human to play a custom video.
+- **Interface Address:** /set_audiotype
 
-#### 5.4.1 请求参数
-  
-paramter			|type		|required	|desc  
-:----				|:---		|:------	|:---	
-sessionid			|int		|O			|数字人会话id，默认为0
-type   			    |string		|R			|start_record:开始录像; end_record:停止录像
+#### 5.3.1 Request Parameters
 
+| Parameter | Type | Required | Description |
+| :---- | :--- | :------ | :--- |
+| sessionid | int | O | Digital human session ID, default is 0 |
+| audiotype | int | R | The content of the video to be played, corresponding to the custom video on the backend |
+| reinit | bool | R | Whether to play the switched video from the beginning, false means to continue from where it left off last time |
 
-请求示例：
+Request Example:
 
 ```
 {
-    ‘type’: 'start_record',
-    ‘sessionid’:0
+    "audiotype": 2,
+    "reinit": false,
+    "sessionid": 0
 }
-
 ```
 
-### 第三方软件对接流程
+### 5.4 Record Video
+- **Interface Description:** Save the digital human's video recording on the server side, and the file address is data/record.mp4.
+- **Interface Address:** /record
+
+#### 5.4.1 Request Parameters
+
+| Parameter | Type | Required | Description |
+| :---- | :--- | :------ | :--- |
+| sessionid | int | O | Digital human session ID, default is 0 |
+| type | string | R | start_record: Start recording; end_record: Stop recording |
+
+Request Example:
+
+```
+{
+    "type": "start_record",
+    "sessionid": 0
+}
+```
+
+### Third-Party Software Docking Process
 ```javascript
 pc = new RTCPeerConnection();
 var offer = pc.localDescription;
-调用api /offer接口，传入参数为offer.sdp, offer.type。获取返回数据answer
-pc.setRemoteDescription(answer) #将返回数据设置到pc中，后面就能接收到视频。 此部分具体代码参考web/client.js
+Call the api /offer interface and pass in the parameters offer.sdp and offer.type. Obtain the returned data answer.
+pc.setRemoteDescription(answer); // Set the returned data into pc, and then you can receive the video. Refer to the specific code in web/client.js for this part.
 
-调用api /human接口, sessionid为answer.sessionid。驱动数字人说话
-
-```
+Call the api /human interface, and the sessionid is answer.sessionid. Drive the digital human to speak.
+``` 

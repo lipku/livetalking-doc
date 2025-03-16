@@ -1,8 +1,8 @@
-## 6. 性能优化
+## 6. Performance Optimization
 
-### 6.1 图片缓存
-数字人贴回时需要用到当前全身图片，如果需要时再从硬盘读取，由于IO性能限制会极大影响程序运行速度。一般需要将全身图片预加载到内存中，如果图片数量不多，全部都加载到内存就可以了，即这种情况下原训练视频长度不要过长。  
-如果训练视频长度较长，内存加载不了全部图片时，此时需要实现一种缓存策略，只加载最近需要的一段图片。下面是一个缓存示意图，假定只加载最近1000张图片
+### 6.1 Image Caching
+When pasting back the digital human, the current full-body image is required. If it is read from the hard disk when needed, due to the limitations of I/O performance, it will greatly affect the running speed of the program. Generally, it is necessary to preload the full-body images into the memory. If the number of images is not large, all of them can be loaded into the memory, that is, in this case, the length of the original training video should not be too long.
+If the length of the training video is long and the memory cannot load all the images, then a caching strategy needs to be implemented, and only a segment of images that are recently required should be loaded. The following is a schematic diagram of the cache. It is assumed that only the latest 1,000 images are loaded.
 ![](./assets/cache.png)
-由于数字人是用的来回循环读取全身图片，实际实现时还需要考虑反向读取图片的情况。  
-实现了一版imgcache代码，代码放在[知识星球](https://t.zsxq.com/7NMyO)上。
+Since the digital human reads the full-body images in a back-and-forth loop, the situation of reading images in the reverse direction also needs to be considered during the actual implementation.
+A version of the imgcache code has been implemented, and the code is placed on [Knowledge Planet](https://t.zsxq.com/7NMyO). 

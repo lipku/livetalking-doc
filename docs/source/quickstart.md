@@ -1,16 +1,15 @@
 ## 2. Quick Start
-- 下载模型  
-下载wav2lip运行需要的模型，链接:<https://pan.baidu.com/s/1yOsQ06-RIDTJd3HFCw4wtA> 密码: ltua  
-将wav2lip256.pth拷到本项目的models下, 重命名为wav2lip.pth;  
-将wav2lip256_avatar1.tar.gz解压后整个文件夹拷到本项目的data/avatars下
-- 运行  
-python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1  
-用浏览器打开http://serverip:8010/webrtcapi.html , 在文本框输入任意文字，提交。数字人播报该段文字
+- Download the models
+Download the models required for running wav2lip. Link: <https://pan.baidu.com/s/1yOsQ06-RIDTJd3HFCw4wtA> Password: ltua
+Copy wav2lip256.pth to the "models" folder of this project and rename it to wav2lip.pth;
+Extract wav2lip256_avatar1.tar.gz and copy the entire folder to the "data/avatars" folder of this project.
+- Run
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1
+Open http://serverip:8010/webrtcapi.html in a browser, enter any text in the text box and submit it. The digital human will broadcast this text.
 
-<font color=red>服务端需要开放端口 tcp:8010; udp:1-65536 </font>
+**The server side needs to open ports tcp:8010; udp:1-65536.**
 
-如果访问不了huggingface，在运行前
+If you can't access huggingface, before running:
 ```
 export HF_ENDPOINT=https://hf-mirror.com
-```
-
+``` 

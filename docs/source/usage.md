@@ -1,31 +1,30 @@
-
 ## 3. Usage
-分别选择数字人模型、传输方式、tts模型
+Select the digital human model, transmission method, and TTS model respectively.
 
-### 3.1 数字人模型
-支持4种模型：ernerf、musetalk、wav2lip、Ultralight-Digital-Human
+### 3.1 Digital Human Model
+Supports 4 models: ernerf, musetalk, wav2lip, Ultralight-Digital-Human
 
-#### 3.1.1 模型用wav2lip
-不支持rtmp推送
-- 下载模型  
-下载wav2lip运行需要的模型，链接:<https://pan.baidu.com/s/1yOsQ06-RIDTJd3HFCw4wtA> 密码: ltua  
-将s3fd.pth拷到本项目wav2lip/face_detection/detection/sfd/s3fd.pth;  
-将wav2lip256.pth拷到本项目的models下, 重命名为wav2lip.pth;  
-将wav2lip256_avatar1.tar.gz解压后整个文件夹拷到本项目的data/avatars下
-- 运行  
-python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1  
-用浏览器打开http://serverip:8010/webrtcapi.html  
-可以设置--batch_size 提高显卡利用率，设置--avatar_id 运行不同的数字人
-##### 替换成自己的数字人
+#### 3.1.1 Using the wav2lip Model
+RTMP pushing is not supported.
+- Download the model
+Download the model required for running wav2lip. Link: <https://pan.baidu.com/s/1yOsQ06-RIDTJd3HFCw4wtA> Password: ltua
+Copy s3fd.pth to wav2lip/face_detection/detection/sfd/s3fd.pth of this project;
+Copy wav2lip256.pth to the "models" folder of this project and rename it to wav2lip.pth;
+Extract wav2lip256_avatar1.tar.gz and copy the entire folder to the "data/avatars" folder of this project.
+- Run
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1
+Open http://serverip:8010/webrtcapi.html in a browser.
+You can set --batch_size to improve the GPU utilization rate, and set --avatar_id to run different digital humans.
+##### Replace with Your Own Digital Human
 ```bash
 cd wav2lip
 python genavatar.py --video_path xxx.mp4 --img_size 256 --avatar_id wav2lip256_avatar1
-运行后将results/avatars下文件拷到本项目的data/avatars下
+After running, copy the files under results/avatars to the "data/avatars" folder of this project.
 ```
 
-#### 3.1.2 模型用musetalk
-不支持rtmp推送
-- 安装依赖库
+#### 3.1.2 Using the musetalk Model
+RTMP pushing is not supported.
+- Install dependent libraries
 ```bash
 conda install ffmpeg
 pip install --no-cache-dir -U openmim 
@@ -34,226 +33,223 @@ mim install "mmcv>=2.0.1"
 mim install "mmdet>=3.1.0" 
 mim install "mmpose>=1.1.0"
 ```
-- 下载模型  
-下载MuseTalk运行需要的模型，提供一个下载地址<https://caiyun.139.com/m/i?2eAjs2nXXnRgr>  提取码:qdg2
-解压后，将models下文件拷到本项目的models下  
-下载数字人模型，链接:<https://caiyun.139.com/m/i?2eAjs8optksop>  提取码:3mkt, 解压后将整个文件夹拷到本项目的data/avatars下
-- 运行  
-python app.py --model musetalk --transport webrtc  
-用浏览器打开http://serverip:8010/webrtcapi.html  
-可以设置--batch_size 提高显卡利用率，设置--avatar_id 运行不同的数字人
-##### 替换成自己的数字人
+- Download the model
+Download the model required for running MuseTalk. A download address is provided: <https://caiyun.139.com/m/i?2eAjs2nXXnRgr>  Extraction code: qdg2
+After decompression, copy the files under "models" to the "models" folder of this project.
+Download the digital human model. Link: <https://caiyun.139.com/m/i?2eAjs8optksop>  Extraction code: 3mkt. After decompression, copy the entire folder to the "data/avatars" folder of this project.
+- Run
+python app.py --model musetalk --transport webrtc
+Open http://serverip:8010/webrtcapi.html in a browser.
+You can set --batch_size to improve the GPU utilization rate, and set --avatar_id to run different digital humans.
+##### Replace with Your Own Digital Human
 ```bash
 git clone https://github.com/TMElyralab/MuseTalk.git
 cd MuseTalk
-修改configs/inference/realtime.yaml，将preparation改为True
+Modify configs/inference/realtime.yaml and change preparation to True.
 python -m scripts.realtime_inference --inference_config configs/inference/realtime.yaml
-运行后将results/avatars下文件拷到本项目的data/avatars下
-方法二
-执行
+After running, copy the files under results/avatars to the "data/avatars" folder of this project.
+```
+OR
+```bash
 cd musetalk 
 python simple_musetalk.py --avatar_id 4  --file D:\\ok\\test.mp4
-支持视频和图片生成 会自动生成到data的avatars目录下
+Supports the generation of videos and images, which will be automatically generated in the "avatars" directory of the "data" folder.
 ```
 
 #### 3.1.3 ER-Nerf
 ```
 python app.py --transport webrtc --model ernerf
 ```
-支持如下参数配置
-##### 3.1.3.1 音频特征用hubert
-默认用的wav2vec，如果训练模型时用的hubert提取音频特征，用如下命令启动数字人
+The following parameter configurations are supported:
+##### 3.1.3.1 Using hubert for Audio Features
+By default, wav2vec is used. If hubert is used to extract audio features when training the model, start the digital human with the following command:
 ```
 python app.py --asr_model facebook/hubert-large-ls960-ft 
 ```
 
-##### 3.1.3.2 设置头部背景图片
+##### 3.1.3.2 Set the Head Background Image
 ```
 python app.py --bg_img bc.jpg 
 ```
 
-##### 3.1.3.3 全身视频贴回
--  1.切割训练用的视频
+##### 3.1.3.3 Pasting Back the Full-Body Video
+- 1. Cut the training video
 ```
-ffmpeg -i fullbody.mp4 -vf crop="400:400:100:5" train.mp4 
+ffmpeg -i fullbody.mp4 -vf crop="400:400:100:5" train.mp4 
 ```
-用train.mp4训练模型
-- 2.提取全身图片
+Use train.mp4 to train the model.
+- 2. Extract the full-body images
 ```
 ffmpeg -i fullbody.mp4 -vf fps=25 -qmin 1 -q:v 1 -start_number 0 data/fullbody/img/%08d.png
 ```
-- 3.启动数字人
+- 3. Start the digital human
 ```
 python app.py --fullbody --fullbody_img data/fullbody/img --fullbody_offset_x 100 --fullbody_offset_y 5 --fullbody_width 580 --fullbody_height 1080 --W 400 --H 400
 ```
-- --fullbody_width、--fullbody_height 全身视频的宽、高
-- --W、--H 训练视频的宽、高  
-- ernerf训练第三步torso如果训练的不好，在拼接处会有接缝。可以在上面的命令加上--torso_imgs data/xxx/torso_imgs --preload 1，torso不用模型推理，直接用训练数据集里的torso图片。这种方式可能头颈处会有些人工痕迹。
+- --fullbody_width and --fullbody_height are the width and height of the full-body video.
+- --W and --H are the width and height of the training video.
+- If the third step (torso) of ernerf training is not well-trained, there will be seams at the splicing position. You can add --torso_imgs data/xxx/torso_imgs --preload 1 to the above command, and the torso does not need model inference, but directly uses the torso images in the training dataset. This method may have some artificial traces at the head and neck.
 
-##### 替换成自己的数字人
-替换成自己训练的模型<https://github.com/Fictionarry/ER-NeRF>，训练模型时音频特征要选wav2vec或者hubert
+##### Replace with Your Own Digital Human
+Replace it with your own trained model <https://github.com/Fictionarry/ER-NeRF>. When training the model, the audio features should be selected as wav2vec or hubert.
 ```bash
 ├── data
-│   ├── data_kf.json （对应训练数据中的transforms_train.json）
+│   ├── data_kf.json (Corresponds to transforms_train.json in the training data)
 │   ├── au.csv			
 │   ├── pretrained
-│   └── └── ngp_kf.pth （对应训练后的模型ngp_ep00xx.pth）
+│   └── └── ngp_kf.pth (Corresponds to the trained model ngp_ep00xx.pth)
 
 ```
 
-#### 3.1.4 模型用Ultralight-Digital-Human
-不支持rtmp推送
-- 制作avatar  
-先根据项目 <https://github.com/anliyuan/Ultralight-Digital-Human> 训练模型，然后在本项目下
+#### 3.1.4 Using the Ultralight-Digital-Human Model
+RTMP pushing is not supported.
+- Create an avatar
+First, train the model according to the project <https://github.com/anliyuan/Ultralight-Digital-Human>, and then in this project:
 ```bash
 cd ultralight
-python genavatar.py --dataset data_dir/  --checkpoint xxx.pth  #data_dir为训练时数据处理后的文件夹
-运行后将results/avatars下文件拷到本项目的data/avatars下
+python genavatar.py --dataset data_dir/  --checkpoint xxx.pth  #data_dir is the folder after data processing during training
+After running, copy the files under results/avatars to the "data/avatars" folder of this project.
 ```
-- 运行  
-python app.py --transport webrtc --model ultralight --avatar_id ultralight_avatar1  
-用浏览器打开http://serverip:8010/webrtcapi.html  
-可以设置--batch_size 提高显卡利用率，设置--avatar_id 运行不同的数字人  
-测试下来效果一般，主要是不说话时嘴巴不稳定。如果哪里用的不对欢迎提建议
+- Run
+python app.py --transport webrtc --model ultralight --avatar_id ultralight_avatar1
+Open http://serverip:8010/webrtcapi.html in a browser.
+You can set --batch_size to improve the GPU utilization rate, and set --avatar_id to run different digital humans.
+The test results are average. Mainly, the mouth is unstable when not speaking. If there is anything wrong with the usage, suggestions are welcome.
 
-
-### 3.2 传输模式
-支持webrtc、rtcpush、rtmp，默认用rtcpush
+### 3.2 Transmission Modes
+Supports webrtc, rtcpush, rtmp. The default is rtcpush.
 #### 3.2.1 webrtc p2p
-此种模式不需要srs
+This mode does not require SRS.
 ```
 python app.py --transport webrtc
 ```
-<font color=red>服务端需要开放端口 tcp:8010; udp:1-65536 </font>
-用浏览器打开http://serverip:8010/webrtcapi.html
+**The server side needs to open ports tcp:8010; udp:1-65536.**
+Open http://serverip:8010/webrtcapi.html in a browser.
 
-#### 3.2.2 webrtc推送到srs
-- 启动srs
+#### 3.2.2 Pushing webrtc to SRS
+- Start SRS
 ```
-export CANDIDATE='<服务器外网ip>'
+export CANDIDATE='<External IP of the Server>'
 docker run --rm --env CANDIDATE=$CANDIDATE \
   -p 1935:1935 -p 8080:8080 -p 1985:1985 -p 8000:8000/udp \
   registry.cn-hangzhou.aliyuncs.com/ossrs/srs:5 \
   objs/srs -c conf/rtc.conf
 ```
-- 运行数字人
+- Run the digital human
 ```python
 python app.py --transport rtcpush --push_url 'http://localhost:1985/rtc/v1/whip/?app=live&stream=livestream'
 ```
-<font color=red>服务端需要开放端口 tcp:8000,8010,1985; udp:8000</font>
-用浏览器打开http://serverip:8010/rtcpushapi.html
+**The server side needs to open ports tcp:8000, 8010, 1985; udp:8000.**
+Open http://serverip:8010/rtcpushapi.html in a browser.
 
-#### 3.2.3 rtmp推送到srs
-- 安装rtmpstream库  
+#### 3.2.3 Pushing rtmp to SRS
+- Install the rtmpstream library
 <https://github.com/lipku/python_rtmpstream>
 
-- 启动srs
+- Start SRS
 ```
 docker run --rm -it -p 1935:1935 -p 1985:1985 -p 8080:8080 registry.cn-hangzhou.aliyuncs.com/ossrs/srs:5
 ```
-- 运行数字人
+- Run the digital human
 ```python
 python app.py --transport rtmp --push_url 'rtmp://localhost/live/livestream'
 ```
-用浏览器打开http://serverip:8010/echoapi.html
+Open http://serverip:8010/echoapi.html in a browser.
 
-**rtmp也可以通过rtcpush到srs，由srs转成rtmp流**
+**rtmp can also be pushed to SRS through rtcpush, and SRS will convert it into an rtmp stream.**
 ```bash
-export CANDIDATE='<服务器外网ip>' #如果srs与浏览器访问在同一层级内网，不需要执行这步
+export CANDIDATE='<External IP of the Server>' #If SRS and the browser access are on the same-level internal network, this step does not need to be executed.
 docker run --rm --env CANDIDATE=$CANDIDATE \
   -p 1935:1935 -p 8080:8080 -p 1985:1985 -p 8000:8000/udp \
   registry.cn-hangzhou.aliyuncs.com/ossrs/srs:5 \
   objs/srs -c conf/rtc2rtmp
 ```
 
-### 3.3 TTS模型
-支持edgetts、gpt-sovits、fish-speech、xtts、cosyvoice，默认用edgetts
+### 3.3 TTS Model
+Supports edgetts, gpt-sovits, fish-speech, xtts, cosyvoice. The default is edgetts.
 #### 3.3.1 gpt-sovits
-服务部署参照[gpt-sovits](tts/gptsovits.md)  
-运行
+For service deployment, refer to [gpt-sovits](tts/gptsovits.md)
+Run
 ```
 python app.py --tts gpt-sovits --TTS_SERVER http://127.0.0.1:9880 --REF_FILE ref.wav --REF_TEXT xxx
 ```
-REF_TEXT为REF_FILE中语音内容，时长不宜过长。此处wav文件需要放在tts服务端，相对tts服务的路径。
+REF_TEXT is the speech content in REF_FILE, and the duration should not be too long. The wav file here needs to be placed on the TTS server side, which is the path relative to the TTS service.
 
 #### 3.3.2 fish-speech
-服务部署参照[fish-speech](tts/fishspeech.md)  
-运行
+For service deployment, refer to [fish-speech](tts/fishspeech.md)
+Run
 ```
 python app.py --tts fishtts --TTS_SERVER http://127.0.0.1:8080 --REF_FILE test
 ```
---REF_FILE为fish-speech服务端的referenceid
+--REF_FILE is the referenceid of the fish-speech server side.
 
 #### 3.3.3 cosyvoice
-服务部署参照[cosyvoice](tts/cosyvoice.md)  
-运行
+For service deployment, refer to [cosyvoice](tts/cosyvoice.md)
+Run
 ```
 python app.py --tts cosyvoice --TTS_SERVER http://127.0.0.1:50000 --REF_FILE ref.wav --REF_TEXT xxx
 ```
-REF_TEXT为REF_FILE中语音内容，时长不宜过长。
+REF_TEXT is the speech content in REF_FILE, and the duration should not be too long.
 
-#### 3.3.4 腾讯语音服务
-运行
+#### 3.3.4 Tencent Speech Service
+Run
 ```shell
 export TENCENT_APPID=xxx #appid
 export TENCENT_SECRET_KEY=xxx  #seceret_key
 export TENCENT_SECRET_ID=xxx #seceret_id
 python app.py --tts tencent  --REF_FILE 101001
 ```
-REF_FILE为音色ID，可以上<https://cloud.tencent.com/document/product/1073/92668>查看音色列表，也可以是自己克隆的音色id
+REF_FILE is the tone ID. You can check the tone list at <https://cloud.tencent.com/document/product/1073/92668>, or it can be the tone ID of your own cloned voice.
 
 #### 3.3.5 xtts
-运行xtts服务，参照<https://github.com/coqui-ai/xtts-streaming-server>
+Run the xtts service, refer to <https://github.com/coqui-ai/xtts-streaming-server>
 ```
 docker run --gpus=all -e COQUI_TOS_AGREED=1 --rm -p 9000:80 ghcr.io/coqui-ai/xtts-streaming-server:latest
 ```
-然后运行，其中ref.wav为需要克隆的声音文件
+Then run, where ref.wav is the sound file to be cloned.
 ```
 python app.py --tts xtts --REF_FILE data/ref.wav --TTS_SERVER http://localhost:9000
 ```
 
-### 3.4 视频编排
-- 1，生成素材
+### 3.4 Video Arrangement
+- 1. Generate materials
 ```
 ffmpeg -i xxx.mp4 -s 576x768 -vf fps=25 -qmin 1 -q:v 1 -start_number 0 data/customvideo/image/%08d.png
 ffmpeg -i xxx.mp4 -vn -acodec pcm_s16le -ac 1 -ar 16000 data/customvideo/audio.wav
 ```
-其中-s与推理输出视频大小一致
-- 2，编辑data/custom_config.json  
-指定imgpath和audiopath。  
-设置audiotype，说明：0表示推理视频，不用设置；1表示静音视频，如果不设置默认用推理视频代替; 2以上自定义配置
-- 3，运行
+Among them, -s is consistent with the size of the inference output video.
+- 2. Edit data/custom_config.json
+Specify imgpath and audiopath.
+Set audiotype. Explanation: 0 represents the inference video and does not need to be set; 1 represents the silent video. If not set, the inference video will be used by default; custom configurations are above 2.
+- 3. Run
 ```
 python app.py --transport webrtc --customvideo_config data/custom_config.json
 ```
-- 4，打开http://<serverip>:8010/webrtcapi-custom.html  
-填写custom_config.json中配置的audiotype，点击切换视频。如果是audiotype为1的静音视频会自动切换，不需要手动点击。
+- 4. Open http://<serverip>:8010/webrtcapi-custom.html
+Fill in the audiotype configured in custom_config.json and click to switch the video. If it is a silent video with audiotype 1, it will be automatically switched without manual clicking.
 
-### 3.5 使用LLM模型进行数字人对话
+### 3.5 Using the LLM Model for Digital Human Dialogue
 
-目前调用千问大模型api实现，与openai接口兼容。支持llm流式输出。    
+Currently, it is implemented by calling the Qwen large model API, which is compatible with the OpenAI interface. It supports the streaming output of the LLM.
 ```
 export DASHSCOPE_API_KEY=<your_api_key>
 ```
 
-根据传输模式用浏览器打开http://serverip:8010/rtcpushchat.html或http://serverip:8010/webrtcchat.html
+Open http://serverip:8010/rtcpushchat.html or http://serverip:8010/webrtcchat.html in a browser according to the transmission mode.
 
-### 3.6 多会话
+### 3.6 Multiple Sessions
 ```
 python app.py --transport webrtc  --max_session 3 
 ```
-通过max_session指定最多运行几个会话。然后打开多个webrtcapi.html
+Specify the maximum number of sessions to run through max_session. Then open multiple webrtcapi.html.
 
-### 3.7 语音输入
-根据webrtc或rtcpush传输模式分别打开webrtcapi-asr.html或rtcpushapi-asr.html  
-先点击最上面的start按钮连接视频；然后点击下面语音采集框的连接、开始按钮；开始语音采集并驱动数字人播报(说完不需要点停止按钮，等数字人说完继续说下一句即可)  
-如果浏览器不能采集语音，在浏览器地址框输入edge://flags/#unsafely-treat-insecure-origin-as-secure，将服务端网址输入下面框中并重启浏览器
+### 3.7 Voice Input
+Open webrtcapi-asr.html or rtcpushapi-asr.html according to the webrtc or rtcpush transmission mode respectively.
+First, click the start button at the top to connect to the video; then click the connect and start buttons of the voice collection box below; start voice collection and drive the digital human to broadcast (there is no need to click the stop button after speaking, just continue to speak the next sentence after the digital human finishes speaking).
+If the browser cannot collect the voice, enter edge://flags/#unsafely-treat-insecure-origin-as-secure in the browser address bar, enter the server address in the following box and restart the browser.
 ![img.png](./assets/audio-input-browser.jpg)
-如果需要安装自己的asr服务端，请参照<https://github.com/modelscope/FunASR/blob/main/runtime/python/websocket/README.md>
+If you need to install your own ASR server, please refer to <https://github.com/modelscope/FunASR/blob/main/runtime/python/websocket/README.md>
 
-
-### 3.8 更多功能集成
-- 语音输入、知识库问答 [Fay](https://github.com/xszyou/Fay)
-- 虚拟主播，字幕抓取 [Luna](https://github.com/Ikaros-521/AI-Vtuber)
-
-
+### 3.8 Integration of More Functions
+- Voice input, RAG [Fay](https://github.com/xszyou/Fay)
+- Virtual anchor, subtitle capture [Luna](https://github.com/Ikaros-521/AI-Vtuber) 
