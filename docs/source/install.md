@@ -1,19 +1,20 @@
 ## 1. Installation
 
-Tested on Ubuntu 20.04, Python3.10, Pytorch 1.12 and CUDA 11.3
 
 ### 1.1 Install dependency
 
+1. 按照开源版本安装环境
+2. 解压源码包，将高清模型拷到代码models目录下
+3. 下载hubert模型放到models目录下
+```python
+import huggingface_hub
+from huggingface_hub import snapshot_download
+huggingface_hub.login(token) # token 从 https://huggingface.co/settings/tokens 获取
+snapshot_download('facebook/hubert-large-ls960-ft', local_dir='models/hubert-large-ls960-ft')
+```
+4. 添加加密解析库
 ```bash
-conda create -n nerfstream python=3.10
-conda activate nerfstream
-#如果cuda版本不为11.3(运行nvidia-smi确认版本)，根据<https://pytorch.org/get-started/previous-versions/>安装对应版本的pytorch 
-conda install pytorch==1.12.1 torchvision==0.13.1 cudatoolkit=11.3 -c pytorch
-pip install -r requirements.txt
-#如果不训练ernerf模型，不需要安装下面的库
-pip install "git+https://github.com/facebookresearch/pytorch3d.git"
-pip install tensorflow-gpu==2.8.0
-pip install --upgrade "protobuf<=3.20.1"
-``` 
-安装常见问题[FAQ](faq.md)  
-linux cuda环境搭建可以参考[这篇文章](https://zhuanlan.zhihu.com/p/674972886)
+pip install pyarmor
+pyarmor gen test.py  #随便写个py文件即可
+```
+在当前目录的dist/pyarmor_runtime_000000拷到源码根目录下
