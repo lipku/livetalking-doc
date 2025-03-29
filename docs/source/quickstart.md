@@ -14,7 +14,8 @@ export DASHSCOPE_API_KEY=xxx
 cd wav2lip
 python genavatar.py  --video_path xxx.mp4  --img_size 192 --avatar_id wav2lipls_avatar1
 ```
-将生成的wav2lipls_avatar1拷到data/avatars下
+将生成的wav2lipls_avatar1拷到data/avatars下  
+
 4. 运行命令 
 ```bash
 python app.py --transport webrtc --model wav2lipls --avatar_id wav2lipls_avatar1 --asrtype tencent --max_session 10

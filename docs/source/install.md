@@ -17,4 +17,4 @@ snapshot_download('facebook/hubert-large-ls960-ft', local_dir='models/hubert-lar
 pip install pyarmor
 pyarmor gen test.py  #随便写个py文件即可
 ```
-在当前目录的dist/pyarmor_runtime_000000拷到源码根目录下
+把生成的dist/pyarmor_runtime_000000拷到源码根目录下
