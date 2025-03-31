@@ -1,260 +1,42 @@
 
 ## 3. Usage
-分别选择数字人模型、传输方式、tts模型
 
-### 3.1 数字人模型
-支持4种模型：ernerf、musetalk、wav2lip、Ultralight-Digital-Human
-
-#### 3.1.1 模型用wav2lip
-不支持rtmp推送
+### 3.1 高清wav2lip模型
 - 下载模型  
-下载wav2lip运行需要的模型，链接:<https://pan.baidu.com/s/1yOsQ06-RIDTJd3HFCw4wtA> 密码: ltua  
-将s3fd.pth拷到本项目wav2lip/face_detection/detection/sfd/s3fd.pth;  
-将wav2lip256.pth拷到本项目的models下, 重命名为wav2lip.pth;  
-将wav2lip256_avatar1.tar.gz解压后整个文件夹拷到本项目的data/avatars下
+将高清模型拷到代码models目录下    
+下载hubert模型放到models目录下
+```python
+import huggingface_hub
+from huggingface_hub import snapshot_download
+huggingface_hub.login(token) # token 从 https://huggingface.co/settings/tokens 获取
+snapshot_download('facebook/hubert-large-ls960-ft', local_dir='models/hubert-large-ls960-ft')
+```
 - 运行  
-python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1  
-用浏览器打开http://serverip:8010/webrtcapi.html  
+python app.py --transport webrtc --model wav2lipls --avatar_id wav2lipls_avatar1 --asrtype tencent --max_session 10  
+用浏览器打开http://serverip:8010/dashboard-pro.html  
 可以设置--batch_size 提高显卡利用率，设置--avatar_id 运行不同的数字人
 ##### 替换成自己的数字人
 ```bash
 cd wav2lip
-python genavatar.py --video_path xxx.mp4 --img_size 256 --avatar_id wav2lip256_avatar1
+python genavatar.py  --video_path xxx.mp4  --img_size 192 --avatar_id wav2lipls_avatar1
 运行后将results/avatars下文件拷到本项目的data/avatars下
 ```
 
-#### 3.1.2 模型用musetalk
-不支持rtmp推送
-- 安装依赖库
-```bash
-conda install ffmpeg
-pip install --no-cache-dir -U openmim 
-mim install mmengine 
-mim install "mmcv>=2.0.1" 
-mim install "mmdet>=3.1.0" 
-mim install "mmpose>=1.1.0"
+### 3.2 课程播放
+将课程内容分割成每句话，并用tts转成语音文件。参照data/lesson.json描述课程
+```json
+[
+    {
+        "text":"希望你过得比我还好呦",  //该句话内容
+        "audiopath":"data/lesson/zero_shot_prompt.wav",  //该句话音频文件，单声道 16KHz
+        "action": {"image":"http://192.168.1.3/image.jpg"}  //格式自定义，数字人播放该句话时会把这部分内容传到前端，由前端解析做相应动作，比如打开对应图片或者网址等
+    },
+    {
+        "text":"test2", 
+        "audiopath":"data/lesson/zhongjie.wav", 
+        "action": {"url":"http://192.168.1.3/test.html"}
+    }
+]
 ```
-- 下载模型  
-下载MuseTalk运行需要的模型，提供一个下载地址<https://caiyun.139.com/m/i?2eAjs2nXXnRgr>  提取码:qdg2
-解压后，将models下文件拷到本项目的models下  
-下载数字人模型，链接:<https://caiyun.139.com/m/i?2eAjs8optksop>  提取码:3mkt, 解压后将整个文件夹拷到本项目的data/avatars下
-- 运行  
-python app.py --model musetalk --transport webrtc  
-用浏览器打开http://serverip:8010/webrtcapi.html  
-可以设置--batch_size 提高显卡利用率，设置--avatar_id 运行不同的数字人
-##### 替换成自己的数字人
-```bash
-git clone https://github.com/TMElyralab/MuseTalk.git
-cd MuseTalk
-修改configs/inference/realtime.yaml，将preparation改为True
-python -m scripts.realtime_inference --inference_config configs/inference/realtime.yaml
-运行后将results/avatars下文件拷到本项目的data/avatars下
-```
-或者
-```bash
-cd musetalk 
-python simple_musetalk.py --avatar_id 4  --file D:\\ok\\test.mp4
-支持视频和图片生成 会自动生成到data的avatars目录下
-```
-
-#### 3.1.3 ER-Nerf
-```
-python app.py --transport webrtc --model ernerf
-```
-支持如下参数配置
-##### 3.1.3.1 音频特征用hubert
-默认用的wav2vec，如果训练模型时用的hubert提取音频特征，用如下命令启动数字人
-```
-python app.py --asr_model facebook/hubert-large-ls960-ft 
-```
-
-##### 3.1.3.2 设置头部背景图片
-```
-python app.py --bg_img bc.jpg 
-```
-
-##### 3.1.3.3 全身视频贴回
--  1.切割训练用的视频
-```
-ffmpeg -i fullbody.mp4 -vf crop="400:400:100:5" train.mp4 
-```
-用train.mp4训练模型
-- 2.提取全身图片
-```
-ffmpeg -i fullbody.mp4 -vf fps=25 -qmin 1 -q:v 1 -start_number 0 data/fullbody/img/%08d.png
-```
-- 3.启动数字人
-```
-python app.py --fullbody --fullbody_img data/fullbody/img --fullbody_offset_x 100 --fullbody_offset_y 5 --fullbody_width 580 --fullbody_height 1080 --W 400 --H 400
-```
-- --fullbody_width、--fullbody_height 全身视频的宽、高
-- --W、--H 训练视频的宽、高  
-- ernerf训练第三步torso如果训练的不好，在拼接处会有接缝。可以在上面的命令加上--torso_imgs data/xxx/torso_imgs --preload 1，torso不用模型推理，直接用训练数据集里的torso图片。这种方式可能头颈处会有些人工痕迹。
-
-##### 替换成自己的数字人
-替换成自己训练的模型<https://github.com/Fictionarry/ER-NeRF>，训练模型时音频特征要选wav2vec或者hubert
-```bash
-├── data
-│   ├── data_kf.json （对应训练数据中的transforms_train.json）
-│   ├── au.csv			
-│   ├── pretrained
-│   └── └── ngp_kf.pth （对应训练后的模型ngp_ep00xx.pth）
-
-```
-
-#### 3.1.4 模型用Ultralight-Digital-Human
-不支持rtmp推送
-- 制作avatar  
-先根据项目 <https://github.com/anliyuan/Ultralight-Digital-Human> 训练模型，然后在本项目下
-```bash
-cd ultralight
-python genavatar.py --dataset data_dir/  --checkpoint xxx.pth  #data_dir为训练时数据处理后的文件夹
-运行后将results/avatars下文件拷到本项目的data/avatars下
-```
-- 运行  
-python app.py --transport webrtc --model ultralight --avatar_id ultralight_avatar1  
-用浏览器打开http://serverip:8010/webrtcapi.html  
-可以设置--batch_size 提高显卡利用率，设置--avatar_id 运行不同的数字人  
-测试下来效果一般，主要是不说话时嘴巴不稳定。如果哪里用的不对欢迎提建议
-
-
-### 3.2 传输模式
-支持webrtc、rtcpush、rtmp，默认用rtcpush
-#### 3.2.1 webrtc p2p
-此种模式不需要srs
-```
-python app.py --transport webrtc
-```
-<font color=red>服务端需要开放端口 tcp:8010; udp:1-65536 </font>
-用浏览器打开http://serverip:8010/webrtcapi.html
-
-#### 3.2.2 webrtc推送到srs
-- 启动srs
-```
-export CANDIDATE='<服务器外网ip>'
-docker run --rm --env CANDIDATE=$CANDIDATE \
-  -p 1935:1935 -p 8080:8080 -p 1985:1985 -p 8000:8000/udp \
-  registry.cn-hangzhou.aliyuncs.com/ossrs/srs:5 \
-  objs/srs -c conf/rtc.conf
-```
-- 运行数字人
-```python
-python app.py --transport rtcpush --push_url 'http://localhost:1985/rtc/v1/whip/?app=live&stream=livestream'
-```
-<font color=red>服务端需要开放端口 tcp:8000,8010,1985; udp:8000</font>
-用浏览器打开http://serverip:8010/rtcpushapi.html
-
-#### 3.2.3 rtmp推送到srs
-- 安装rtmpstream库  
-<https://github.com/lipku/python_rtmpstream>
-
-- 启动srs
-```
-docker run --rm -it -p 1935:1935 -p 1985:1985 -p 8080:8080 registry.cn-hangzhou.aliyuncs.com/ossrs/srs:5
-```
-- 运行数字人
-```python
-python app.py --transport rtmp --push_url 'rtmp://localhost/live/livestream'
-```
-用浏览器打开http://serverip:8010/echoapi.html
-
-**rtmp也可以通过rtcpush到srs，由srs转成rtmp流**
-```bash
-export CANDIDATE='<服务器外网ip>' #如果srs与浏览器访问在同一层级内网，不需要执行这步
-docker run --rm --env CANDIDATE=$CANDIDATE \
-  -p 1935:1935 -p 8080:8080 -p 1985:1985 -p 8000:8000/udp \
-  registry.cn-hangzhou.aliyuncs.com/ossrs/srs:5 \
-  objs/srs -c conf/rtc2rtmp
-```
-
-### 3.3 TTS模型
-支持edgetts、gpt-sovits、fish-speech、xtts、cosyvoice，默认用edgetts
-#### 3.3.1 gpt-sovits
-服务部署参照[gpt-sovits](tts/gptsovits.md)  
-运行
-```
-python app.py --tts gpt-sovits --TTS_SERVER http://127.0.0.1:9880 --REF_FILE ref.wav --REF_TEXT xxx
-```
-REF_TEXT为REF_FILE中语音内容，时长不宜过长。此处wav文件需要放在tts服务端，相对tts服务的路径。
-
-#### 3.3.2 fish-speech
-服务部署参照[fish-speech](tts/fishspeech.md)  
-运行
-```
-python app.py --tts fishtts --TTS_SERVER http://127.0.0.1:8080 --REF_FILE test
-```
---REF_FILE为fish-speech服务端的referenceid
-
-#### 3.3.3 cosyvoice
-服务部署参照[cosyvoice](tts/cosyvoice.md)  
-运行
-```
-python app.py --tts cosyvoice --TTS_SERVER http://127.0.0.1:50000 --REF_FILE ref.wav --REF_TEXT xxx
-```
-REF_TEXT为REF_FILE中语音内容，时长不宜过长。
-
-#### 3.3.4 腾讯语音服务
-运行
-```shell
-export TENCENT_APPID=xxx #appid
-export TENCENT_SECRET_KEY=xxx  #seceret_key
-export TENCENT_SECRET_ID=xxx #seceret_id
-python app.py --tts tencent  --REF_FILE 101001
-```
-REF_FILE为音色ID，可以上<https://cloud.tencent.com/document/product/1073/92668>查看音色列表，也可以是自己克隆的音色id
-
-#### 3.3.5 xtts
-运行xtts服务，参照<https://github.com/coqui-ai/xtts-streaming-server>
-```
-docker run --gpus=all -e COQUI_TOS_AGREED=1 --rm -p 9000:80 ghcr.io/coqui-ai/xtts-streaming-server:latest
-```
-然后运行，其中ref.wav为需要克隆的声音文件
-```
-python app.py --tts xtts --REF_FILE data/ref.wav --TTS_SERVER http://localhost:9000
-```
-
-### 3.4 视频编排
-- 1，生成素材
-```
-ffmpeg -i xxx.mp4 -s 576x768 -vf fps=25 -qmin 1 -q:v 1 -start_number 0 data/customvideo/image/%08d.png
-ffmpeg -i xxx.mp4 -vn -acodec pcm_s16le -ac 1 -ar 16000 data/customvideo/audio.wav
-```
-其中-s与推理输出视频大小一致
-- 2，编辑data/custom_config.json  
-指定imgpath和audiopath。  
-设置audiotype，说明：0表示推理视频，不用设置；1表示静音视频，如果不设置默认用推理视频代替; 2以上自定义配置
-- 3，运行
-```
-python app.py --transport webrtc --customvideo_config data/custom_config.json
-```
-- 4，打开http://<serverip>:8010/webrtcapi-custom.html  
-填写custom_config.json中配置的audiotype，点击切换视频。如果是audiotype为1的静音视频会自动切换，不需要手动点击。
-
-### 3.5 使用LLM模型进行数字人对话
-
-目前调用千问大模型api实现，与openai接口兼容。支持llm流式输出。    
-```
-export DASHSCOPE_API_KEY=<your_api_key>
-```
-
-根据传输模式用浏览器打开http://serverip:8010/rtcpushchat.html或http://serverip:8010/webrtcchat.html
-
-### 3.6 多会话
-```
-python app.py --transport webrtc  --max_session 3 
-```
-通过max_session指定最多运行几个会话。然后打开多个webrtcapi.html
-
-### 3.7 语音输入
-根据webrtc或rtcpush传输模式分别打开webrtcapi-asr.html或rtcpushapi-asr.html  
-先点击最上面的start按钮连接视频；然后点击下面语音采集框的连接、开始按钮；开始语音采集并驱动数字人播报(说完不需要点停止按钮，等数字人说完继续说下一句即可)  
-如果浏览器不能采集语音，在浏览器地址框输入edge://flags/#unsafely-treat-insecure-origin-as-secure，将服务端网址输入下面框中并重启浏览器
-![img.png](./assets/audio-input-browser.jpg)
-如果需要安装自己的asr服务端，请参照<https://github.com/modelscope/FunASR/blob/main/runtime/python/websocket/README.md>
-
-
-### 3.8 更多功能集成
-- 语音输入、知识库问答 [Fay](https://github.com/xszyou/Fay)
-- 虚拟主播，字幕抓取 [Luna](https://github.com/Ikaros-521/AI-Vtuber)
-
+用浏览器打开http://serverip:8010/dashboard-pro.html，点击‘开始课程’会播放课程内容。可以通过唤醒词打断提问，数字人回答完后继续播放课程
 
