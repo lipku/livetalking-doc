@@ -8,7 +8,7 @@
 #### 3.1.1 模型用wav2lip
 不支持rtmp推送
 - 下载模型  
-下载wav2lip运行需要的模型，链接:<https://pan.baidu.com/s/1yOsQ06-RIDTJd3HFCw4wtA> 密码: ltua  
+下载wav2lip运行需要的模型，链接:<https://pan.quark.cn/s/83a750323ef0>    
 将s3fd.pth拷到本项目wav2lip/face_detection/detection/sfd/s3fd.pth;  
 将wav2lip256.pth拷到本项目的models下, 重命名为wav2lip.pth;  
 将wav2lip256_avatar1.tar.gz解压后整个文件夹拷到本项目的data/avatars下
@@ -35,9 +35,9 @@ mim install "mmdet>=3.1.0"
 mim install "mmpose>=1.1.0"
 ```
 - 下载模型  
-下载MuseTalk运行需要的模型，提供一个下载地址<https://caiyun.139.com/m/i?2eAjs2nXXnRgr>  提取码:qdg2
-解压后，将models下文件拷到本项目的models下  
-下载数字人模型，链接:<https://caiyun.139.com/m/i?2eAjs8optksop>  提取码:3mkt, 解压后将整个文件夹拷到本项目的data/avatars下
+下载MuseTalk运行需要的模型，链接: <https://pan.quark.cn/s/5f603eb97e93>  
+musetalk.zip解压后，将models下文件拷到本项目的models下  
+avator_1.zip解压后将整个文件夹拷到本项目的data/avatars下
 - 运行  
 python app.py --model musetalk --transport webrtc  
 用浏览器打开http://serverip:8010/webrtcapi.html  

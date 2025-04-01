@@ -1,6 +1,6 @@
 ## 2. Quick Start
 - 下载模型  
-下载wav2lip运行需要的模型，链接:<https://pan.baidu.com/s/1yOsQ06-RIDTJd3HFCw4wtA> 密码: ltua  
+下载wav2lip运行需要的模型，链接:<https://pan.quark.cn/s/83a750323ef0>   
 将wav2lip256.pth拷到本项目的models下, 重命名为wav2lip.pth;  
 将wav2lip256_avatar1.tar.gz解压后整个文件夹拷到本项目的data/avatars下
 - 运行  
