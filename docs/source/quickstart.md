@@ -1,6 +1,6 @@
 ## 2. Quick Start
 - Download the models
-Download the models required for running wav2lip. Link: <https://pan.baidu.com/s/1yOsQ06-RIDTJd3HFCw4wtA> Password: ltua
+Download the models required for running wav2lip. Link: <https://pan.quark.cn/s/83a750323ef0>  
 Copy wav2lip256.pth to the "models" folder of this project and rename it to wav2lip.pth;
 Extract wav2lip256_avatar1.tar.gz and copy the entire folder to the "data/avatars" folder of this project.
 - Run

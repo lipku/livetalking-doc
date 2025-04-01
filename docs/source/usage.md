@@ -7,7 +7,7 @@ Supports 4 models: ernerf, musetalk, wav2lip, Ultralight-Digital-Human
 #### 3.1.1 Using the wav2lip Model
 RTMP pushing is not supported.
 - Download the model
-Download the model required for running wav2lip. Link: <https://pan.baidu.com/s/1yOsQ06-RIDTJd3HFCw4wtA> Password: ltua
+Download the model required for running wav2lip. Link: <https://pan.quark.cn/s/83a750323ef0>  
 Copy s3fd.pth to wav2lip/face_detection/detection/sfd/s3fd.pth of this project;
 Copy wav2lip256.pth to the "models" folder of this project and rename it to wav2lip.pth;
 Extract wav2lip256_avatar1.tar.gz and copy the entire folder to the "data/avatars" folder of this project.
@@ -34,9 +34,9 @@ mim install "mmdet>=3.1.0"
 mim install "mmpose>=1.1.0"
 ```
 - Download the model
-Download the model required for running MuseTalk. A download address is provided: <https://caiyun.139.com/m/i?2eAjs2nXXnRgr>  Extraction code: qdg2
-After decompression, copy the files under "models" to the "models" folder of this project.
-Download the digital human model. Link: <https://caiyun.139.com/m/i?2eAjs8optksop>  Extraction code: 3mkt. After decompression, copy the entire folder to the "data/avatars" folder of this project.
+Download the model required for running MuseTalk. <https://pan.quark.cn/s/5f603eb97e93>  
+After decompression musetalk.zip, copy the files under "models" to the "models" folder of this project.
+After decompression avator_1.zip, copy the entire folder to the "data/avatars" folder of this project.
 - Run
 python app.py --model musetalk --transport webrtc
 Open http://serverip:8010/webrtcapi.html in a browser.
