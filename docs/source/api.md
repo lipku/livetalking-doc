@@ -50,7 +50,7 @@ sessionid			|int		|R			|数字人会话id，用于区分多路数字人。后面
   
 paramter			|type		|required	|desc  
 :----				|:---		|:------	|:---	
-sessionid			|int		|O			|数字人会话id，默认为0
+sessionid			|int		|R			|数字人会话id
 interrupt			|bool		|O			|是否打断数字人当前说话，默认为false
 type				|string		|R			|echo：数字人播报输入文字；chat：与数字人对话
 text				|string		|R			|文字内容
@@ -76,7 +76,7 @@ text				|string		|R			|文字内容
   
 paramter			|type		|required	|desc  
 :----				|:---		|:------	|:---	
-sessionid			|int		|O			|数字人会话id，默认为0
+sessionid			|int		|R			|数字人会话id
 audiotype			|int		|R			|播放的视频内容，与后台自定义视频对应
 reinit				|bool		|R			|切换的视频是否从头开始播，false为继续上次的播放
 
@@ -100,7 +100,7 @@ reinit				|bool		|R			|切换的视频是否从头开始播，false为继续上�
   
 paramter			|type		|required	|desc  
 :----				|:---		|:------	|:---	
-sessionid			|int		|O			|数字人会话id，默认为0
+sessionid			|int		|R			|数字人会话id
 type   			    |string		|R			|start_record:开始录像; end_record:停止录像
 
 
