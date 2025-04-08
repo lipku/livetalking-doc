@@ -70,3 +70,8 @@ python genavatar.py  --video_path act.mp4  --img_size 192 --avatar_id wav2lipls_
 ```
 python app.py --transport webrtc --model wav2lipls --avatar_id wav2lipls_avatar1 --customvideo_config data/custom_config.json
 ```
+
+### 3.4 背景透明
+生成avatar时的视频背景需要用绿幕  
+用拾色器获取绿幕的rgb值  
+修改web/client-chat-transparency.js，将gFloor取绿幕中g的最小值、rbCeiling取绿幕中r和b的最大值。
