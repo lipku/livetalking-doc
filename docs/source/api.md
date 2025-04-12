@@ -17,6 +17,7 @@ hotword				|string		|O			|唤醒词，默认值用命令启动参数里的hotwor
 session_time		|string		|O			|数字人回答问题后进入休眠等待时间，默认值用命令启动参数里的session_time
 audio_reply			|string		|O			|唤醒后数字人应答语，默认值为'data/reply.mp3'
 audio_leave			|string		|O			|数字人进入休眠提示语，默认值为'data/leave.mp3'
+llmid			    |string		|O			|用于区分不同rag，默认值为''
 
 
 请求示例：

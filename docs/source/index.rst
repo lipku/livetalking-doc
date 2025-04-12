@@ -16,5 +16,3 @@ Contents
    usage
    docker
    api
-   optimize
-   service

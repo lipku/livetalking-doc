@@ -8,7 +8,6 @@
 ```python
 import huggingface_hub
 from huggingface_hub import snapshot_download
-huggingface_hub.login(token) # token 从 https://huggingface.co/settings/tokens 获取
 snapshot_download('facebook/hubert-large-ls960-ft', local_dir='models/hubert-large-ls960-ft')
 ```
 - 运行  
@@ -41,11 +40,12 @@ python genavatar.py  --video_path xxx.mp4  --img_size 192 --avatar_id wav2lipls_
 用浏览器打开http://serverip:8010/dashboard-pro.html，点击‘开始课程’会播放课程内容。可以通过唤醒词打断提问，数字人回答完后继续播放课程
 
 ### 3.3 动作编排
+1. 自定义不说话时动作(audiotype为1)
 - 1，切割素材
 录制一段无动作和有动作衔接的视频，用剪映等软件找到衔接的时间点，用ffmepg命令切割成无动作和有动作视频。以网上的‘韵巧.mp4’为例，
 ```
 ffmpeg -i input.mp4 -ss 00:00:00 -to 00:00:02 -c copy -copyts -avoid_negative_ts make_zero silence.mp4
-ffmpeg -i input.mp4 -ss 00:00:02 -to 00:00:20 -c copy -copyts -avoid_negative_ts make_zero act.mp4
+ffmpeg -i input.mp4 -ss 00:00:02 -to 00:00:20 -c copy -copyts -avoid_negative_ts make_zero speak.mp4
 ```
 - 2，用无动作视频生成静音素材
 ```
@@ -64,12 +64,53 @@ ffmpeg -i silence.mp4 -vf fps=25 -qmin 1 -q:v 1 -start_number 0 data/customvideo
 - 4，用有动作视频生成avatar，如
 ```
 cd wav2lip
-python genavatar.py  --video_path act.mp4  --img_size 192 --avatar_id wav2lipls_avatar1
+python genavatar.py  --video_path speak.mp4  --img_size 192 --avatar_id wav2lipls_avatar1
 ```
-- 5，运行
+其中img_size根据不同的模型分别设置
+
+- 5，运行  
+高清模型
 ```
 python app.py --transport webrtc --model wav2lipls --avatar_id wav2lipls_avatar1 --customvideo_config data/custom_config.json
 ```
+普通模型
+```
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1 --customvideo_config data/custom_config.json
+```
+2. 其他动作  
+唤醒时动作(audiotype为2)、思考时动作(audiotype为3)、进入休眠动作(audiotype为4)  
+用切割后视频制作动作素材 
+```
+ffmpeg -i xxx.mp4 -vf fps=25 -qmin 1 -q:v 1 -start_number 0 data/customvideo/reply/%08d.png
+ffmpeg -i xxx.mp4 -vn -acodec pcm_s16le -ac 1 -ar 16000 data/customvideo/reply.wav
+```
+编辑data/custom_config.json  
+```json
+[
+    {
+        "audiotype":1, 
+        "imgpath":"data/customvideo/image"
+    },
+    {
+        "audiotype":2, 
+        "imgpath":"data/customvideo/reply",
+        "audiopath":"data/customvideo/reply.wav"
+    },
+    {
+        "audiotype":3, 
+        "imgpath":"data/customvideo/llm",
+        "audiopath":"data/customvideo/llm.wav"
+    },
+    {
+        "audiotype":4, 
+        "imgpath":"data/customvideo/leave",
+        "audiopath":"data/customvideo/leave.wav"
+    }
+]
+```
+运行命令同上
+
+
 
 ### 3.4 背景透明
 生成avatar时的视频背景需要用绿幕  
