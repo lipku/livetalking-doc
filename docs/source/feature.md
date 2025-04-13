@@ -2,9 +2,9 @@ Real-time interactive streaming digital human enables synchronous audio and vide
 
 Project address: <https://github.com/lipku/livetalking>
 
-[Effect of ernerf](https://www.bilibili.com/video/BV1PM4m1y7Q2/)  
+[Effect of ernerf](https://www.bilibili.com/video/BV1G1421z73r/)  
 [Effect of musetalk](https://www.bilibili.com/video/BV1gm421N7vQ/)  
-[Effect of wav2lip](https://www.bilibili.com/video/BV1Bw4m1e74P/)
+[Effect of wav2lip](https://www.bilibili.com/video/BV1scwBeyELA/)
 
 ## 0. Features
 1. Supports multiple digital human models: ernerf, musetalk, wav2lip, Ultralight-Digital-Human
