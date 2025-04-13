@@ -3,9 +3,9 @@ Real time interactive streaming digital human， realize audio video synchronous
 
 项目地址:<https://github.com/lipku/livetalking>  
 
-[ernerf效果](https://www.bilibili.com/video/BV1PM4m1y7Q2/)  
+[ernerf效果](https://www.bilibili.com/video/BV1G1421z73r/)  
 [musetalk效果](https://www.bilibili.com/video/BV1gm421N7vQ/)  
-[wav2lip效果](https://www.bilibili.com/video/BV1Bw4m1e74P/)
+[wav2lip效果](https://www.bilibili.com/video/BV1scwBeyELA/)
 
 ## 0. Features
 1. 支持多种数字人模型: ernerf、musetalk、wav2lip、Ultralight-Digital-Human
