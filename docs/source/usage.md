@@ -98,8 +98,8 @@ ffmpeg -i xxx.mp4 -vn -acodec pcm_s16le -ac 1 -ar 16000 data/customvideo/reply.w
     },
     {
         "audiotype":3, 
-        "imgpath":"data/customvideo/llm",
-        "audiopath":"data/customvideo/llm.wav"
+        "imgpath":"data/customvideo/think",
+        "audiopath":"data/customvideo/think.wav"
     },
     {
         "audiotype":4, 
