@@ -1,13 +1,24 @@
 ## 4. Docker Run  
-不需要前面的安装，直接运行。
-```
-docker run --gpus all -it --network=host --rm registry.cn-beijing.aliyuncs.com/codewithgpu2/lipku-metahuman-stream:vjo1Y6NJ3N
-```
-代码在/root/metahuman-stream，先git pull拉一下最新代码，然后执行命令同usage
+[ucloud](https://passport.compshare.cn/register?referral_code=3XW3852OBmnD089hMMrtuU)注册一个账号并登录，点击头像，拷贝company id发给我，提供运行镜像。  
+用镜像运行实例，防火墙开放udp端口50000～51000  
+后台运行
+```shell
+export TENCENT_APPID=xxx
+export TENCENT_SECRET_KEY=xxx
+export TENCENT_SECRET_ID=xxx
+export DASHSCOPE_API_KEY=xxx
 
-提供如下镜像
-- autodl镜像：<https://www.codewithgpu.com/i/lipku/metahuman-stream/base>  
-[autodl教程](autodl/README.md)
-- ucloud镜像 <https://www.compshare.cn/images-detail?ImageID=compshareImage-18tpjhhxoq3j&referral_code=3XW3852OBmnD089hMMrtuU&ytag=GPU_livetalking1.3>  
-可以开放任意端口，不需要单独部署srs服务  
-[ucloud教程](ucloud/ucloud.md) 
+conda activate nerfstream
+cd livetalking
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1 --asrtype tencent --customvideo_config data/custom_config.json
+```
+
+浏览器打开页面http://serverip:8010/dashboard-pro.html  
+因为需要采集音频，需要在浏览器加白名单。在浏览器地址框输入edge://flags/#unsafely-treat-insecure-origin-as-secure，将服务端网址输入下面框中并重启浏览器
+![img.png](./assets/audio-input-browser.jpg)  
+
+---
+说唤醒词’你好‘触发数字人，然后提问，数字人回答问题。   
+回答过程中可以通过唤醒词’你好‘打断或者点击‘打断提问’按钮。  
+数字人回答完后可以继续提问。  
+一段时间没有提问后需要再次唤醒才能提问。
