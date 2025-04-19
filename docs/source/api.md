@@ -18,6 +18,7 @@ session_time		|string		|O			|数字人回答问题后进入休眠等待时间，
 audio_reply			|string		|O			|唤醒后数字人应答语，默认值为'data/reply.mp3'
 audio_leave			|string		|O			|数字人进入休眠提示语，默认值为'data/leave.mp3'
 llmid			    |string		|O			|用于区分不同rag，默认值为''
+custom_config		|string		|O			|动作编排配置文件路径，默认值用命令启动参数里的customvideo_config
 
 
 请求示例：
