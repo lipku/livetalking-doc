@@ -57,7 +57,7 @@ sessionid			|int		|R			|数字人会话id，用于区分多路数字人。后面
   
 paramter			|type		|required	|desc  
 :----				|:---		|:------	|:---	
-sessionid			|int		|O			|数字人会话id，默认为0
+sessionid			|int		|R			|数字人会话id
 interrupt			|bool		|O			|是否打断数字人当前说话，默认为false
 type				|string		|R			|echo：数字人播报输入文字；chat：与数字人对话
 text				|string		|R			|文字内容
@@ -83,7 +83,7 @@ text				|string		|R			|文字内容
   
 paramter			|type		|required	|desc  
 :----				|:---		|:------	|:---	
-sessionid			|int		|O			|数字人会话id，默认为0
+sessionid			|int		|R			|数字人会话id
 audiotype			|int		|R			|播放的视频内容，与后台自定义视频对应
 reinit				|bool		|R			|切换的视频是否从头开始播，false为继续上次的播放
 
@@ -107,7 +107,7 @@ reinit				|bool		|R			|切换的视频是否从头开始播，false为继续上�
   
 paramter			|type		|required	|desc  
 :----				|:---		|:------	|:---	
-sessionid			|int		|O			|数字人会话id，默认为0
+sessionid			|int		|R			|数字人会话id
 type   			    |string		|R			|start_record:开始录像; end_record:停止录像
 
 
@@ -117,6 +117,46 @@ type   			    |string		|R			|start_record:开始录像; end_record:停止录像
 {
     ‘type’: 'start_record',
     ‘sessionid’:0
+}
+
+```
+
+### 5.5 打断提问
+- **接口说明：** 唤醒数字人或者打断提问
+- **接口地址：** /interrupt_chat
+
+#### 5.5.1 请求参数
+  
+paramter			|type		|required	|desc  
+:----				|:---		|:------	|:---	
+sessionid			|int		|R			|数字人会话id
+
+
+请求示例：
+
+```
+{
+    ‘sessionid’:xxx
+}
+
+```
+
+### 5.6 结束会话
+- **接口说明：** 结束会话，数字人进入休眠状态。需要再次唤醒才能交互
+- **接口地址：** /stop_session
+
+#### 5.6.1 请求参数
+  
+paramter			|type		|required	|desc  
+:----				|:---		|:------	|:---	
+sessionid			|int		|R			|数字人会话id
+
+
+请求示例：
+
+```
+{
+    ‘sessionid’:xxx
 }
 
 ```
