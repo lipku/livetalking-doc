@@ -20,8 +20,9 @@ python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1
 ```bash
 cd wav2lip
 python genavatar.py --video_path xxx.mp4 --img_size 256 --avatar_id wav2lip256_avatar1
-运行后将results/avatars下文件拷到本项目的data/avatars下
 ```
+运行后将results/avatars下文件拷到本项目的data/avatars下  
+**输入视频需要用闭嘴不说话的视频**
 
 #### 3.1.2 模型用musetalk
 不支持rtmp推送
@@ -39,7 +40,7 @@ mim install "mmpose>=1.1.0"
 musetalk.zip解压后，将models下文件拷到本项目的models下  
 avator_1.zip解压后将整个文件夹拷到本项目的data/avatars下
 - 运行  
-python app.py --model musetalk --transport webrtc  
+python app.py --transport webrtc --model musetalk --avatar_id avator_1    
 用浏览器打开http://serverip:8010/webrtcapi.html  
 可以设置--batch_size 提高显卡利用率，设置--avatar_id 运行不同的数字人
 ##### 替换成自己的数字人
@@ -56,6 +57,7 @@ cd musetalk
 python simple_musetalk.py --avatar_id 4  --file D:\\ok\\test.mp4
 支持视频和图片生成 会自动生成到data的avatars目录下
 ```
+**输入视频需要用闭嘴不说话的视频**
 
 #### 3.1.3 ER-Nerf
 ```
@@ -65,12 +67,12 @@ python app.py --transport webrtc --model ernerf
 ##### 3.1.3.1 音频特征用hubert
 默认用的wav2vec，如果训练模型时用的hubert提取音频特征，用如下命令启动数字人
 ```
-python app.py --asr_model facebook/hubert-large-ls960-ft 
+python app.py --transport webrtc --model ernerf --asr_model facebook/hubert-large-ls960-ft 
 ```
 
 ##### 3.1.3.2 设置头部背景图片
 ```
-python app.py --bg_img bc.jpg 
+python app.py --transport webrtc --model ernerf --bg_img bc.jpg 
 ```
 
 ##### 3.1.3.3 全身视频贴回
@@ -85,7 +87,7 @@ ffmpeg -i fullbody.mp4 -vf fps=25 -qmin 1 -q:v 1 -start_number 0 data/fullbody/i
 ```
 - 3.启动数字人
 ```
-python app.py --fullbody --fullbody_img data/fullbody/img --fullbody_offset_x 100 --fullbody_offset_y 5 --fullbody_width 580 --fullbody_height 1080 --W 400 --H 400
+python app.py --transport webrtc --model ernerf --fullbody --fullbody_img data/fullbody/img --fullbody_offset_x 100 --fullbody_offset_y 5 --fullbody_width 580 --fullbody_height 1080 --W 400 --H 400
 ```
 - --fullbody_width、--fullbody_height 全身视频的宽、高
 - --W、--H 训练视频的宽、高  
@@ -123,7 +125,7 @@ python app.py --transport webrtc --model ultralight --avatar_id ultralight_avata
 #### 3.2.1 webrtc p2p
 此种模式不需要srs
 ```
-python app.py --transport webrtc
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1
 ```
 <font color=red>服务端需要开放端口 tcp:8010; udp:1-65536 </font>
 用浏览器打开http://serverip:8010/webrtcapi.html
@@ -139,7 +141,7 @@ docker run --rm --env CANDIDATE=$CANDIDATE \
 ```
 - 运行数字人
 ```python
-python app.py --transport rtcpush --push_url 'http://localhost:1985/rtc/v1/whip/?app=live&stream=livestream'
+python app.py --transport rtcpush --push_url 'http://localhost:1985/rtc/v1/whip/?app=live&stream=livestream' --model wav2lip --avatar_id wav2lip256_avatar1
 ```
 <font color=red>服务端需要开放端口 tcp:8000,8010,1985; udp:8000</font>
 用浏览器打开http://serverip:8010/rtcpushapi.html
@@ -173,7 +175,7 @@ docker run --rm --env CANDIDATE=$CANDIDATE \
 服务部署参照[gpt-sovits](tts/gptsovits.md)  
 运行
 ```
-python app.py --tts gpt-sovits --TTS_SERVER http://127.0.0.1:9880 --REF_FILE ref.wav --REF_TEXT xxx
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1 --tts gpt-sovits --TTS_SERVER http://127.0.0.1:9880 --REF_FILE ref.wav --REF_TEXT xxx
 ```
 REF_TEXT为REF_FILE中语音内容，时长不宜过长。此处wav文件需要放在tts服务端，相对tts服务的路径。
 
@@ -181,7 +183,7 @@ REF_TEXT为REF_FILE中语音内容，时长不宜过长。此处wav文件需要�
 服务部署参照[fish-speech](tts/fishspeech.md)  
 运行
 ```
-python app.py --tts fishtts --TTS_SERVER http://127.0.0.1:8080 --REF_FILE test
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1 --tts fishtts --TTS_SERVER http://127.0.0.1:8080 --REF_FILE test
 ```
 --REF_FILE为fish-speech服务端的referenceid
 
@@ -189,7 +191,7 @@ python app.py --tts fishtts --TTS_SERVER http://127.0.0.1:8080 --REF_FILE test
 服务部署参照[cosyvoice](tts/cosyvoice.md)  
 运行
 ```
-python app.py --tts cosyvoice --TTS_SERVER http://127.0.0.1:50000 --REF_FILE ref.wav --REF_TEXT xxx
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1 --tts cosyvoice --TTS_SERVER http://127.0.0.1:50000 --REF_FILE ref.wav --REF_TEXT xxx
 ```
 REF_TEXT为REF_FILE中语音内容，时长不宜过长。
 
@@ -199,7 +201,7 @@ REF_TEXT为REF_FILE中语音内容，时长不宜过长。
 export TENCENT_APPID=xxx #appid
 export TENCENT_SECRET_KEY=xxx  #seceret_key
 export TENCENT_SECRET_ID=xxx #seceret_id
-python app.py --tts tencent  --REF_FILE 101001
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1 --tts tencent  --REF_FILE 101001
 ```
 REF_FILE为音色ID，可以上<https://cloud.tencent.com/document/product/1073/92668>查看音色列表，也可以是自己克隆的音色id
 
@@ -210,7 +212,7 @@ docker run --gpus=all -e COQUI_TOS_AGREED=1 --rm -p 9000:80 ghcr.io/coqui-ai/xtt
 ```
 然后运行，其中ref.wav为需要克隆的声音文件
 ```
-python app.py --tts xtts --REF_FILE data/ref.wav --TTS_SERVER http://localhost:9000
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1 --tts xtts --REF_FILE data/ref.wav --TTS_SERVER http://localhost:9000
 ```
 
 ### 3.4 视频编排
@@ -224,7 +226,7 @@ ffmpeg -i xxx.mp4 -vn -acodec pcm_s16le -ac 1 -ar 16000 data/customvideo/audio.w
 设置audiotype，说明：0表示推理视频，不用设置；1表示静音视频，如果不设置默认用推理视频代替; 2以上自定义配置
 - 3，运行
 ```
-python app.py --transport webrtc --customvideo_config data/custom_config.json
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1 --customvideo_config data/custom_config.json
 ```
 - 4，打开http://<serverip>:8010/webrtcapi-custom.html  
 填写custom_config.json中配置的audiotype，点击切换视频。如果是audiotype为1的静音视频会自动切换，不需要手动点击。
@@ -240,16 +242,24 @@ export DASHSCOPE_API_KEY=<your_api_key>
 
 ### 3.6 多会话
 ```
-python app.py --transport webrtc  --max_session 3 
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1 --max_session 3 
 ```
 通过max_session指定最多运行几个会话。然后打开多个webrtcapi.html
 
 ### 3.7 语音输入
+1. 用funasr语音识别  
 根据webrtc或rtcpush传输模式分别打开webrtcapi-asr.html或rtcpushapi-asr.html  
 先点击最上面的start按钮连接视频；然后点击下面语音采集框的连接、开始按钮；开始语音采集并驱动数字人播报(说完不需要点停止按钮，等数字人说完继续说下一句即可)  
 如果浏览器不能采集语音，在浏览器地址框输入edge://flags/#unsafely-treat-insecure-origin-as-secure，将服务端网址输入下面框中并重启浏览器
 ![img.png](./assets/audio-input-browser.jpg)
 如果需要安装自己的asr服务端，请参照<https://github.com/modelscope/FunASR/blob/main/runtime/python/websocket/README.md>
+2. 用浏览器自带的语音识别  
+需要用到llm做对话，后台运行
+```
+export DASHSCOPE_API_KEY=<your_api_key>
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1  
+```
+然后在浏览器中打开页面dashboard.html,由于需要采集音频，也需要像上一步一样在浏览器中加入白名单
 
 
 ### 3.8 更多功能集成
