@@ -6,7 +6,6 @@
 支持4种模型：ernerf、musetalk、wav2lip、Ultralight-Digital-Human
 
 #### 3.1.1 模型用wav2lip
-不支持rtmp推送
 - 下载模型  
 下载wav2lip运行需要的模型，链接:<https://pan.quark.cn/s/83a750323ef0>    
 将s3fd.pth拷到本项目wav2lip/face_detection/detection/sfd/s3fd.pth;  
@@ -25,7 +24,6 @@ python genavatar.py --video_path xxx.mp4 --img_size 256 --avatar_id wav2lip256_a
 **输入视频需要用闭嘴不说话的视频**
 
 #### 3.1.2 模型用musetalk
-不支持rtmp推送
 - 安装依赖库
 ```bash
 conda install ffmpeg
@@ -60,6 +58,7 @@ python simple_musetalk.py --avatar_id 4  --file D:\\ok\\test.mp4
 **输入视频需要用闭嘴不说话的视频**
 
 #### 3.1.3 ER-Nerf
+ernerf模型在git分支ernerf-rtmp，git checkout ernerf-rtmp
 ```
 python app.py --transport webrtc --model ernerf
 ```
@@ -105,7 +104,6 @@ python app.py --transport webrtc --model ernerf --fullbody --fullbody_img data/f
 ```
 
 #### 3.1.4 模型用Ultralight-Digital-Human
-不支持rtmp推送
 - 制作avatar  
 先根据项目 <https://github.com/anliyuan/Ultralight-Digital-Human> 训练模型，然后在本项目下
 ```bash
@@ -146,7 +144,8 @@ python app.py --transport rtcpush --push_url 'http://localhost:1985/rtc/v1/whip/
 <font color=red>服务端需要开放端口 tcp:8000,8010,1985; udp:8000</font>
 用浏览器打开http://serverip:8010/rtcpushapi.html
 
-#### 3.2.3 rtmp推送到srs
+#### 3.2.3 rtmp推送
+rtmp目前只支持ernerf模型，后续不再支持该种传输方式。如需要rtmp传输，可通过srs转发实现
 - 安装rtmpstream库  
 <https://github.com/lipku/python_rtmpstream>
 
@@ -170,7 +169,7 @@ docker run --rm --env CANDIDATE=$CANDIDATE \
 ```
 
 ### 3.3 TTS模型
-支持edgetts、gpt-sovits、fish-speech、xtts、cosyvoice，默认用edgetts
+支持edgetts、gpt-sovits、fish-speech、xtts、cosyvoice。默认用edgetts，可通过REF_FILE指定音色
 #### 3.3.1 gpt-sovits
 服务部署参照[gpt-sovits](tts/gptsovits.md)  
 运行
