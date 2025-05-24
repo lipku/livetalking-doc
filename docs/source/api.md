@@ -13,6 +13,7 @@ type				|string		|R			|填offer
 sdp				    |string		|R			|webrtc请求参数
 avatar				|string		|O			|avatarid,默认值用命令启动参数里的avatar_id
 refaudio			|string		|O			|克隆音色id，默认值用命令启动参数里的REF_FILE
+reftext 			|string		|O			|克隆音色文本，默认值用命令启动参数里的REF_TEXT
 hotword				|string		|O			|唤醒词，默认值用命令启动参数里的hotword
 session_time		|string		|O			|数字人回答问题后进入休眠等待时间，默认值用命令启动参数里的session_time
 audio_reply			|string		|O			|唤醒后数字人应答语，默认值为'data/reply.mp3'

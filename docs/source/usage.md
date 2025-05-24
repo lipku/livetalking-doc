@@ -111,8 +111,14 @@ ffmpeg -i xxx.mp4 -vn -acodec pcm_s16le -ac 1 -ar 16000 data/customvideo/reply.w
 运行命令同上
 
 
-
 ### 3.4 背景透明
 生成avatar时的视频背景需要用绿幕  
 用拾色器获取绿幕的rgb值  
 修改web/client-chat-transparency.js，将gFloor取绿幕中g的最小值、rbCeiling取绿幕中r和b的最大值。
+
+### 3.5 实时音频流输入
+通过websocket连接ws://serverip:8010/ws  
+连接后发送{'cmd':'login','sessionid':sessionid},设置当前连接的sessionid，其中sessionid是从offer接口返回的  
+如果音频数据流为pcm格式，发送{'cmd':'setpcm','samplerate':xxx}设置音频采样率，其中xxx设置为pcm数据的真实采样率  
+然后每段音频数据，通过websocket直接发送二进制数据如ws.send(arrayBuffer)  
+代码参照webrtcapi-avatar.html
