@@ -214,7 +214,7 @@ docker run --gpus=all -e COQUI_TOS_AGREED=1 --rm -p 9000:80 ghcr.io/coqui-ai/xtt
 python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1 --tts xtts --REF_FILE data/ref.wav --TTS_SERVER http://localhost:9000
 ```
 
-### 3.4 视频编排
+### 3.4 动作编排
 - 1，生成素材
 ```
 ffmpeg -i xxx.mp4 -vf fps=25 -qmin 1 -q:v 1 -start_number 0 data/customvideo/image/%08d.png
@@ -260,8 +260,17 @@ python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1
 ```
 然后在浏览器中打开页面dashboard.html,由于需要采集音频，也需要像上一步一样在浏览器中加入白名单
 
+### 3.8 虚拟摄像头输出
+参考<https://github.com/letmaik/pyvirtualcam>安装虚拟摄像头驱动，然后运行
+```bash
+pip install pyvirtualcam
+pip install pyaudio
+python app.py --transport virtualcam --model wav2lip --avatar_id wav2lip256_avatar1 
+```
+打开obs或者其他直播软件，摄像头输入选择虚拟摄像头，可以看到数字人视频  
+打开webrtcapi.html，不要点击start，直接输入文字，点击send，在obs能看到数字人说话
 
-### 3.8 更多功能集成
+### 3.9 更多功能集成
 - 语音输入、知识库问答 [Fay](https://github.com/xszyou/Fay)
 - 虚拟主播，字幕抓取 [Luna](https://github.com/Ikaros-521/AI-Vtuber)
 
