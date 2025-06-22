@@ -114,6 +114,26 @@ type   			    |string		|R			|start_record:开始录像; end_record:停止录像
 
 ```
 
+### 5.5 打断数字人说话
+- **接口说明：** 打断数字人说话
+- **接口地址：** /interrupt_talk
+
+#### 5.5.1 请求参数
+  
+paramter			|type		|required	|desc  
+:----				|:---		|:------	|:---	
+sessionid			|int		|R			|数字人会话id
+
+
+请求示例：
+
+```
+{
+    ‘sessionid’:0
+}
+
+```
+
 ### 第三方软件对接流程
 ```javascript
 pc = new RTCPeerConnection();

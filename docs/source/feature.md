@@ -2,6 +2,7 @@ Real time interactive streaming digital human， realize audio video synchronous
 实时交互流式数字人，实现音视频同步对话。基本可以达到商用效果  
 
 项目地址:<https://github.com/lipku/livetalking>  
+镜像地址:<https://gitee.com/lipku/LiveTalking>  
 
 [ernerf效果](https://www.bilibili.com/video/BV1G1421z73r/)  
 [musetalk效果](https://www.bilibili.com/video/BV1gm421N7vQ/)  
