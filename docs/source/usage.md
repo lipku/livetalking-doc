@@ -18,7 +18,7 @@ python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1
 ##### 替换成自己的数字人
 ```bash
 cd wav2lip
-python genavatar.py --video_path xxx.mp4 --img_size 256 --avatar_id wav2lip256_avatar1
+python genavatar.py --video_path xxx.mp4 --img_size 256 --avatar_id wav2lip256_avatar1 #img_size固定为256，与模型相关
 ```
 运行后将results/avatars下文件拷到本项目的data/avatars下  
 **输入视频需要用闭嘴不说话的视频**
@@ -232,7 +232,7 @@ python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1 
 
 ### 3.5 使用LLM模型进行数字人对话
 
-目前调用千问大模型api实现，与openai接口兼容。支持llm流式输出。    
+目前调用千问大模型api实现，与openai接口兼容。支持llm流式输出。如果需要与其他大模型对接，修改llm.py中api调用接口      
 ```
 export DASHSCOPE_API_KEY=<your_api_key>
 ```
