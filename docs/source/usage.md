@@ -204,7 +204,16 @@ python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1 
 ```
 REF_FILE为音色ID，可以上<https://cloud.tencent.com/document/product/1073/92668>查看音色列表，也可以是自己克隆的音色id
 
-#### 3.3.5 xtts
+#### 3.3.5 豆包语音服务
+运行
+```shell
+export DOUBAO_APPID=xxx #appid
+export DOUBAO_TOKEN=xxx  #accesss_token
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1 --tts doubao --REF_FILE zh_female_roumeinvyou_emo_v2_mars_bigtts
+```
+REF_FILE为音色ID，可以上<https://www.volcengine.com/docs/6561/1257544>查看音色列表，也可以是自己克隆的音色id
+
+#### 3.3.6 xtts
 运行xtts服务，参照<https://github.com/coqui-ai/xtts-streaming-server>
 ```
 docker run --gpus=all -e COQUI_TOS_AGREED=1 --rm -p 9000:80 ghcr.io/coqui-ai/xtts-streaming-server:latest
