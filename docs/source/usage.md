@@ -11,9 +11,7 @@ from huggingface_hub import snapshot_download
 snapshot_download('facebook/hubert-large-ls960-ft', local_dir='models/hubert-large-ls960-ft')
 ```
 - 运行  
-python app.py --transport webrtc --model wav2lipls --avatar_id wav2lipls_avatar1 --asrtype tencent --max_session 10  
-用浏览器打开http://serverip:8010/dashboard-pro.html  
-可以设置--batch_size 提高显卡利用率，设置--avatar_id 运行不同的数字人
+python app.py --transport webrtc --model wav2lipls --avatar_id wav2lipls_avatar1   
 ##### 替换成自己的数字人
 ```bash
 cd wav2lip
@@ -21,23 +19,14 @@ python genavatar.py  --video_path xxx.mp4  --img_size 192 --avatar_id wav2lipls_
 运行后将results/avatars下文件拷到本项目的data/avatars下
 ```
 
-### 3.2 课程播放
-将课程内容分割成每句话，并用tts转成语音文件。参照data/lesson.json描述课程
-```json
-[
-    {
-        "text":"希望你过得比我还好呦",  //该句话内容
-        "audiopath":"data/lesson/zero_shot_prompt.wav",  //该句话音频文件，单声道 16KHz
-        "action": {"image":"http://192.168.1.3/image.jpg"}  //格式自定义，数字人播放该句话时会把这部分内容传到前端，由前端解析做相应动作，比如打开对应图片或者网址等
-    },
-    {
-        "text":"test2", 
-        "audiopath":"data/lesson/zhongjie.wav", 
-        "action": {"url":"http://192.168.1.3/test.html"}
-    }
-]
+### 3.2 不限时长avatar形象
+- 运行
+```bash
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1 --imgcache_num 400
 ```
-用浏览器打开http://serverip:8010/dashboard-pro.html，点击‘开始课程’会播放课程内容。可以通过唤醒词打断提问，数字人回答完后继续播放课程
+其中imgcache_num为图片缓存张数，一般设置为400以上。设置太低会导致加载太频繁
+
+
 
 ### 3.3 动作编排
 #### 3.3.1 自定义不说话时动作(audiotype为1)
@@ -78,7 +67,7 @@ python app.py --transport webrtc --model wav2lipls --avatar_id wav2lipls_avatar1
 python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1 --customvideo_config data/custom_config.json
 ```
 #### 3.3.2 其他动作  
-唤醒时动作(audiotype为2)、思考时动作(audiotype为3)、进入休眠动作(audiotype为4)  
+唤醒时动作(audiotype为2)、思考时动作(audiotype为3) 
 用切割后视频制作动作素材 
 ```
 ffmpeg -i xxx.mp4 -vf fps=25 -qmin 1 -q:v 1 -start_number 0 data/customvideo/reply/%08d.png
@@ -100,23 +89,13 @@ ffmpeg -i xxx.mp4 -vn -acodec pcm_s16le -ac 1 -ar 16000 data/customvideo/reply.w
         "audiotype":3, 
         "imgpath":"data/customvideo/think",
         "audiopath":"data/customvideo/think.wav"
-    },
-    {
-        "audiotype":4, 
-        "imgpath":"data/customvideo/leave",
-        "audiopath":"data/customvideo/leave.wav"
     }
 ]
 ```
 运行命令同上
 
 
-### 3.4 背景透明
-生成avatar时的视频背景需要用绿幕  
-用拾色器获取绿幕的rgb值  
-修改web/client-chat-transparency.js，将gFloor取绿幕中g的最小值、rbCeiling取绿幕中r和b的最大值。
-
-### 3.5 实时音频流输入
+### 3.4 实时音频流输入
 通过websocket连接ws://serverip:8010/ws  
 连接后发送{'cmd':'login','sessionid':sessionid},设置当前连接的sessionid，其中sessionid是从offer接口返回的  
 如果音频数据流为pcm格式，发送{'cmd':'setpcm','samplerate':xxx}设置音频采样率，其中xxx设置为pcm数据的真实采样率  

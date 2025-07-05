@@ -14,10 +14,6 @@ sdp				    |string		|R			|webrtc请求参数
 avatar				|string		|O			|avatarid,默认值用命令启动参数里的avatar_id
 refaudio			|string		|O			|克隆音色id，默认值用命令启动参数里的REF_FILE
 reftext 			|string		|O			|克隆音色文本，默认值用命令启动参数里的REF_TEXT
-hotword				|string		|O			|唤醒词，默认值用命令启动参数里的hotword
-session_time		|string		|O			|数字人回答问题后进入休眠等待时间，默认值用命令启动参数里的session_time
-audio_reply			|string		|O			|唤醒后数字人应答语，默认值为'data/reply.mp3'
-audio_leave			|string		|O			|数字人进入休眠提示语，默认值为'data/leave.mp3'
 llmid			    |string		|O			|用于区分不同rag，默认值为''
 custom_config		|string		|O			|动作编排配置文件路径，默认值用命令启动参数里的customvideo_config
 
@@ -119,46 +115,6 @@ type   			    |string		|R			|start_record:开始录像; end_record:停止录像
 {
     ‘type’: 'start_record',
     ‘sessionid’:0
-}
-
-```
-
-### 5.5 开启会话
-- **接口说明：** 唤醒数字人。如果数字人正在说话，会打断当前说话，开启新的会话
-- **接口地址：** /start_session
-
-#### 5.5.1 请求参数
-  
-paramter			|type		|required	|desc  
-:----				|:---		|:------	|:---	
-sessionid			|int		|R			|数字人会话id
-
-
-请求示例：
-
-```
-{
-    ‘sessionid’:xxx
-}
-
-```
-
-### 5.6 结束会话
-- **接口说明：** 结束会话，数字人进入休眠状态。需要再次唤醒才能交互
-- **接口地址：** /stop_session
-
-#### 5.6.1 请求参数
-  
-paramter			|type		|required	|desc  
-:----				|:---		|:------	|:---	
-sessionid			|int		|R			|数字人会话id
-
-
-请求示例：
-
-```
-{
-    ‘sessionid’:xxx
 }
 
 ```
