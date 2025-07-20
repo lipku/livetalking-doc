@@ -10,12 +10,26 @@ import huggingface_hub
 from huggingface_hub import snapshot_download
 snapshot_download('facebook/hubert-large-ls960-ft', local_dir='models/hubert-large-ls960-ft')
 ```
-- 运行  
-python app.py --transport webrtc --model wav2lipls --avatar_id wav2lipls_avatar1   
-##### 替换成自己的数字人
+- 运行
+1. 192模型  
+```
+python app.py --transport webrtc --model wav2lipls --avatar_id wav2lipls_avatar1
+```   
+ 替换成自己的数字人
 ```bash
 cd wav2lip
 python genavatar.py  --video_path xxx.mp4  --img_size 192 --avatar_id wav2lipls_avatar1
+运行后将results/avatars下文件拷到本项目的data/avatars下
+```
+2. 384模型  
+修改wav2lipls/models/human.py，将face_size = 192改为face_size = 384
+```  
+python app.py --transport webrtc --model wav2lipls --avatar_id wav2lipls384_avatar1 --modelres 384
+```  
+替换成自己的数字人
+```bash
+cd wav2lip
+python genavatar.py  --video_path xxx.mp4  --img_size 384 --avatar_id wav2lipls384_avatar1
 运行后将results/avatars下文件拷到本项目的data/avatars下
 ```
 
