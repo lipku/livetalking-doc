@@ -32,6 +32,12 @@ cd wav2lip
 python genavatar.py  --video_path xxx.mp4  --img_size 384 --avatar_id wav2lipls384_avatar1
 运行后将results/avatars下文件拷到本项目的data/avatars下
 ```
+3. 使用微调模型
+将微调后模型拷贝到models目录下  
+运行命令时添加参数 --modelfile xxx，如
+```
+python app.py --transport webrtc --model wav2lipls --avatar_id wav2lipls_finetune --modelfile checkpoint_step001500000_finetune.pth
+```
 
 ### 3.2 不限时长avatar形象
 - 运行
