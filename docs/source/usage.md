@@ -35,11 +35,11 @@ mim install "mmpose>=1.1.0"
 ```
 - 下载模型  
 下载MuseTalk运行需要的模型，链接: <https://pan.xunlei.com/s/VOW3nYho64jeCxT2sxrjcE7fA1?pwd=evnw>  
-musetalk.zip解压后，将models下文件拷到本项目的models下  
-avator_1.zip解压后将整个文件夹拷到本项目的data/avatars下
+将models下文件拷到本项目的models下  
+musetalk_avatar1.tar.gz解压后将整个文件夹拷到本项目的data/avatars下
 - 运行
 ```  
-python app.py --transport webrtc --model musetalk --avatar_id avator_1  
+python app.py --transport webrtc --model musetalk --avatar_id musetalk_avatar1  
 ```  
 用浏览器打开http://serverip:8010/webrtcapi.html  
 可以设置--batch_size 提高显卡利用率，设置--avatar_id 运行不同的数字人
@@ -53,9 +53,8 @@ python -m scripts.realtime_inference --inference_config configs/inference/realti
 ```
 或者
 ```bash
-cd musetalk 
-python simple_musetalk.py --avatar_id 4  --file D:\\ok\\test.mp4
-支持视频和图片生成 会自动生成到data的avatars目录下
+python genavatar_musetalk.py --avatar_id musetalk_avatar1 --file D:\\ok\\test.mp4
+支持视频和图片生成,会自动生成到data的avatars目录下
 ```
 **输入视频需要用闭嘴不说话的视频**
 

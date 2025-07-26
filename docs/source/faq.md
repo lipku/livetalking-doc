@@ -70,6 +70,14 @@ python -m pip install pip==24.0
 mim install "mmdet>=3.1.0" 
 mim install "mmpose>=1.1.0"
 ```
+- 如果报如下错误
+```
+'Adafactor is already registered in optimizer at torch.optim'
+```
+升级mmengine
+```
+mim install mmengine==0.10.7
+```
 
 9. numpy版本不兼容  
 报错：numpy.dtype size changed, may indicate binary incompatibility. Expected 96 from C header, got 88 from PyObject  
