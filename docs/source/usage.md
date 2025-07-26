@@ -34,7 +34,7 @@ mim install "mmdet>=3.1.0"
 mim install "mmpose>=1.1.0"
 ```
 - 下载模型  
-下载MuseTalk运行需要的模型，链接: <https://pan.quark.cn/s/5f603eb97e93>  
+下载MuseTalk运行需要的模型，链接: <https://pan.xunlei.com/s/VOW3nYho64jeCxT2sxrjcE7fA1?pwd=evnw>  
 musetalk.zip解压后，将models下文件拷到本项目的models下  
 avator_1.zip解压后将整个文件夹拷到本项目的data/avatars下
 - 运行
