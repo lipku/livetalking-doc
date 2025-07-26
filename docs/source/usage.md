@@ -18,7 +18,7 @@ python app.py --transport webrtc --model wav2lipls --avatar_id wav2lipls_avatar1
  替换成自己的数字人
 ```bash
 cd wav2lip
-python genavatar.py  --video_path xxx.mp4  --img_size 192 --avatar_id wav2lipls_avatar1
+python genavatar_yolo.py  --video_path xxx.mp4  --img_size 192 --avatar_id wav2lipls_avatar1
 运行后将results/avatars下文件拷到本项目的data/avatars下
 ```
 2. 384模型  
@@ -29,7 +29,7 @@ python app.py --transport webrtc --model wav2lipls --avatar_id wav2lipls384_avat
 替换成自己的数字人
 ```bash
 cd wav2lip
-python genavatar.py  --video_path xxx.mp4  --img_size 384 --avatar_id wav2lipls384_avatar1
+python genavatar_yolo.py  --video_path xxx.mp4  --img_size 384 --avatar_id wav2lipls384_avatar1
 运行后将results/avatars下文件拷到本项目的data/avatars下
 ```
 3. 使用微调模型
