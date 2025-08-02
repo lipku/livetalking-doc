@@ -27,13 +27,9 @@ conda activate nerfstream
 cd /workspace/LiveTalking
 ```
 然后根据不同数字人模型运行（只需选择一个运行即可）  
-* **ernerf**：  
-```
-python app.py --transport webrtc --tts gpt-sovits --TTS_SERVER http://127.0.0.1:9880 --REF_FILE ~/zero_shot_prompt.wav --REF_TEXT 希望你以后能够做的比我还好呦
-```  
 * **museltalk**：
 ```
-python app.py --model musetalk --transport webrtc --tts gpt-sovits --TTS_SERVER http://127.0.0.1:9880 --REF_FILE ~/zero_shot_prompt.wav --REF_TEXT 希望你以后能够做的比我还好呦
+python app.py --model musetalk --avatar_id musetalk_avatar1 --transport webrtc --tts gpt-sovits --TTS_SERVER http://127.0.0.1:9880 --REF_FILE ~/zero_shot_prompt.wav --REF_TEXT 希望你以后能够做的比我还好呦
 ```
 * **wav2lip**：
 ```

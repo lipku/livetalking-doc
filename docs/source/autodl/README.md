@@ -2,14 +2,14 @@
 # autodl 使用教程
 
 ## autodl 镜像地址
-https://www.codewithgpu.com/i/lipku/metahuman-stream/base
+https://www.codewithgpu.com/i/lipku/livetalking/base
 
 ## 代码目录
-/root/metahuman-stream/
+/root/livetalking/
 
 ## 依赖安装
 ```
-cd metahuman-stream
+cd livetalking
 git pull
 pip install -r requirements.txt
 ```
@@ -26,7 +26,7 @@ docker run --rm --env CANDIDATE=$CANDIDATE \
 ```
 ### 推流到 srs 服务器 
 ```
-python app.py --listenport 6006 --transport rtcpush --push_url 'http://<阿里云服务外网ip>:1985/rtc/v1/whip/?app=live&stream=livestream'
+python app.py --listenport 6006 --transport rtcpush --model wav2lip --avatar_id wav2lip256_avatar1 --push_url 'http://<阿里云服务外网ip>:1985/rtc/v1/whip/?app=live&stream=livestream'
 ```
 
 ### 访问 
