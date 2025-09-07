@@ -15,7 +15,8 @@ avatar				|string		|O			|avatarid,默认值用命令启动参数里的avatar_id
 refaudio			|string		|O			|克隆音色id，默认值用命令启动参数里的REF_FILE
 reftext 			|string		|O			|克隆音色文本，默认值用命令启动参数里的REF_TEXT
 llmid			    |string		|O			|用于区分不同rag，默认值为''
-custom_config		|string		|O			|动作编排配置文件路径，默认值用命令启动参数里的customvideo_config
+custom_config		|string		|O			|动作编排配置json字符串，默认值用命令启动参数里的customvideo_config
+multiavatar_config	|string		|O			|avatar切换配置json字符串，默认值用命令启动参数里的multiavatar_config
 
 
 请求示例：
@@ -59,6 +60,7 @@ sessionid			|int		|R			|数字人会话id
 interrupt			|bool		|O			|是否打断数字人当前说话，默认为false
 type				|string		|R			|echo：数字人播报输入文字；chat：与数字人对话
 text				|string		|R			|文字内容
+avatarid			|string		|O			|选择用哪个avatar播报，与multiavatar_config中对应，默认用主avatar
 
 
 请求示例：

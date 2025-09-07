@@ -114,8 +114,16 @@ ffmpeg -i xxx.mp4 -vn -acodec pcm_s16le -ac 1 -ar 16000 data/customvideo/reply.w
 ```
 运行命令同上
 
+### 3.4 avatar实时切换
+生成多个avatar形象，放置在data/avatars下，多个avatar的分辨率要一致  
+通过json字符串描述要加载的多个avatar供切换用，如[{'avatarid':'avatar1'},{'avatarid':'avatar2'}]  
+运行示例，主avatar不要在multiavatar_config中描述
+```
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_yunqiao  --multiavatar_config [{\"avatarid\":\"wav2lip256_yunqiaosilence\"}]
+```
+在需要切换avatar时，在human接口中添加avatarid字段，如‘avatarid’:‘wav2lip256_yunqiaosilence’，具体查看api接口文档  
 
-### 3.4 实时音频流输入
+### 3.5 实时音频流输入
 通过websocket连接ws://serverip:8010/ws  
 连接后发送{'cmd':'login','sessionid':sessionid},设置当前连接的sessionid，其中sessionid是从offer接口返回的  
 如果音频数据流为pcm格式，发送{'cmd':'setpcm','samplerate':xxx}设置音频采样率，其中xxx设置为pcm数据的真实采样率  
