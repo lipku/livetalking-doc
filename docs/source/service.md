@@ -9,35 +9,34 @@ Email: lipku@foxmail.com
 分为两个版本：
 1. 192  
 在显卡3060上能达到实时，价格¥2000.   
-效果演示[wav2lipls192](./assets/wav2lipls192.MP4)
+
 2. 384  
 在显卡4070上能达到实时，价格¥3000. 该价格提供192和384两个版本模型，购买过192模型的用户可以加¥1000升级到384   
-效果演示[wav2lipls384](./assets/wav2lipls384.MP4)  
 
 btw：高清模型使嘴型准确、牙齿清晰，不是使视频高清。视频高清需要提高原始视频分辨率，修改aiortc中h264.py提高编码码率。
 
 ### 7.2 功能优化
 1. avatar视频不限时长  
 通过cache管理图片内存，只加载最近需要用到的图片，显著降低内存占用。支持不限时长的avatar视频，适用于特定场景使用如直播  
-2. vue客户端 [效果演示](https://www.bilibili.com/video/BV1CYKWzzEzs/)  
+2. vue客户端 
 提供vue前端代码，支持数字人透明背景。客户端下载<https://pan.quark.cn/s/d7192d8ac19b>  
-3. python客户端 [效果演示](https://www.bilibili.com/video/BV13va7zNEVv)  
+3. python客户端   
 独立视频窗口显示，提供python接口交互，更方便与python项目集成如直播场景。  
 4. 语音交互    
 (1)数字人说话过程中用唤醒词打断提问  
 (2)数字人说话过程中不被其他杂音干扰  
 (3)数字人回答完一个问题后可以继续提问
-5. avatar实时切换 [效果演示](https://www.bilibili.com/video/BV1mMpEzuEty/)  
-交互过程中可以实时切换avatar，适合根据不同场景做不同动作
+5. avatar实时切换   
+交互过程中可以实时切换avatar形象，适合根据不同场景做不同动作
 
 ### 7.3 价格表
 功能			|价格		|备注	 
 :----				|:---		|:------		
-wav2lip高清模型			|¥3000		|	
+wav2lip高清模型			|¥3000		|	[效果演示](./assets/wav2lipls384.MP4)
 不限时长avatar形象(目前只支持wav2lip)			|¥3000		|	
-透明背景+vue代码			|¥3000		|		
-语音交互、同步字幕与事件通知、vue代码			|¥8000		|	
+透明背景+vue代码			|¥3000		|	[效果演示](https://www.bilibili.com/video/BV1CYKWzzEzs/)  	
+语音交互、同步字幕与事件通知、vue代码			|¥8000		|	[效果演示](https://www.bilibili.com/video/BV1ABKUzVEdP)
 每个连接指定不同avatar和音色			|¥1000		|
 实时音频流输入			|¥2000		|  
-实时切换avatar			|¥5000		| 
-python客户端		   |¥4000		|  
+实时切换avatar形象和动作			|¥5000		| [效果演示](https://www.bilibili.com/video/BV1mMpEzuEty/)
+python客户端		   |¥4000		|  [效果演示](https://www.bilibili.com/video/BV13va7zNEVv)
