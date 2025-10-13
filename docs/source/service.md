@@ -25,9 +25,9 @@ btw：高清模型使嘴型准确、牙齿清晰，不是使视频高清。视�
 4. 语音交互    
 (1)数字人说话过程中用唤醒词打断提问  
 (2)数字人说话过程中不被其他杂音干扰  
-(3)数字人回答完一个问题后可以继续提问
+(3)可以检测到数字人回答完一个问题
 5. avatar实时切换   
-交互过程中可以实时切换avatar形象，适合根据不同场景做不同动作
+交互过程中可以实时切换avatar形象，适合根据不同场景做不同动作。与动作编排的区别：动作编排只能播放提前录制好的音视频；avatar切换在播放动作时可以让数字人说指定的话。
 
 ### 7.3 价格表
 功能			|价格		|备注	 
@@ -38,5 +38,5 @@ wav2lip高清模型			|¥3000		|	[效果演示](./assets/wav2lipls384.MP4)
 语音交互、同步字幕与事件通知、vue代码			|¥8000		|	[效果演示](https://www.bilibili.com/video/BV1ABKUzVEdP)
 每个连接指定不同avatar和音色			|¥1000		|
 实时音频流输入			|¥2000		|  
-实时切换avatar形象和动作			|¥5000		| [效果演示](https://www.bilibili.com/video/BV1mMpEzuEty/)
-python客户端		   |¥4000		|  [效果演示](https://www.bilibili.com/video/BV13va7zNEVv)
+实时切换avatar形象和动作			|¥4000		| [效果演示](https://www.bilibili.com/video/BV1mMpEzuEty/)
+python客户端		   |¥3000		|  [效果演示](https://www.bilibili.com/video/BV13va7zNEVv)
