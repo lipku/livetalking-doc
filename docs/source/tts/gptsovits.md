@@ -74,6 +74,3 @@ POST:
 }
 ```
 
-
-## 如果你需要使用autodl 进行部署 
-请使用  https://www.codewithgpu.com/i/RVC-Boss/GPT-SoVITS/GPT-SoVITS 作为基础镜像你能快速进行部署
