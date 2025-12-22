@@ -2,7 +2,7 @@
 
 WeChat: wxwubug (please note your requirements)  
 Email: lipku@foxmail.com  
-
+Telegram: https://t.me/livetalking  
 
 ## 7.1 HD Version of wav2lip  
 The wav2lip network structure has been upgraded and optimized: the audio feature has been changed to Hubert, and an LSTM network has been integrated to establish connections between preceding and following frames.  
