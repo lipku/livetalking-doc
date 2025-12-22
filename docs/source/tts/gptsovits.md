@@ -3,20 +3,16 @@
 git clone https://github.com/RVC-Boss/GPT-SoVITS.git
 ## 1. 安装依赖库
 ```
-conda create -n sovits python=3.9
+conda create -n sovits python=3.10
 conda activate sovits
-bash install.sh
+bash install.sh --download-uvr5 --device CU126 --source HF
 ```
 
 ## 2. 下载模型文件
-在GPT_SoVITS目录下执行
-```python
-from huggingface_hub import snapshot_download
-snapshot_download('lj1995/GPT-SoVITS', local_dir='GPT_SoVITS/pretrained_models')
-```
+第一步的安装脚本会自动下载模型文件  
 或者手动从 [GPT-SoVITS Models](https://huggingface.co/lj1995/GPT-SoVITS) 下载预训练模型，并将它们放置在 `GPT_SoVITS/GPT_SoVITS/pretrained_models` 中
 
-最终文件目录如下
+最终文件目录如下（文件名可能有更新）
 ```
 pretrained_models/
     --chinese-hubert-base

@@ -2,7 +2,8 @@
 ## 7. 收费服务
 
 微信：wxwubug 备注需求   
-Email: lipku@foxmail.com
+Email: lipku@foxmail.com  
+Telegram: https://t.me/livetalking
 
 ### 7.1 wav2lip高清版
 对wav2lip网络结构做了升级优化；音频特征改为hubert；用lstm网络添加前后帧关联。
