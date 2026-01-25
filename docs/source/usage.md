@@ -109,14 +109,15 @@ python app.py --transport webrtc --model ernerf --fullbody --fullbody_img data/f
 先根据项目 <https://github.com/anliyuan/Ultralight-Digital-Human> 训练模型，然后在本项目下
 ```bash
 cd ultralight
-python genavatar.py --dataset data_dir/  --checkpoint xxx.pth  #data_dir为训练时数据处理后的文件夹
+#checkpoint为训练后模型文件路径，目前只支持音频特征为hubert的模型； 
+#video_path提供一段训练人物闭嘴不说话的视频
+python genavatar.py --video_path xxx.mp4 --avatar_id ultralight_avatar1 --checkpoint xxx.pth  
 运行后将results/avatars下文件拷到本项目的data/avatars下
 ```
 - 运行  
 python app.py --transport webrtc --model ultralight --avatar_id ultralight_avatar1  
 用浏览器打开http://serverip:8010/webrtcapi.html  
 可以设置--batch_size 提高显卡利用率，设置--avatar_id 运行不同的数字人  
-测试下来效果一般，主要是不说话时嘴巴不稳定。如果哪里用的不对欢迎提建议
 
 
 ### 3.2 传输模式
