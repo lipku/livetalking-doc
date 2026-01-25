@@ -106,7 +106,9 @@ python app.py --transport webrtc --model ernerf --fullbody --fullbody_img data/f
 
 #### 3.1.4 模型用Ultralight-Digital-Human
 - 制作avatar  
-先根据项目 <https://github.com/anliyuan/Ultralight-Digital-Human> 训练模型，然后在本项目下
+先根据项目 <https://github.com/anliyuan/Ultralight-Digital-Human> 训练模型，  
+然后将Ultralight-Digital-Human项目下checkpoint_epoch_335.pth.tar和scrfd_2.5g_kps.onnx拷到本项目ultralight/face_detect_utils下  
+运行
 ```bash
 cd ultralight
 #checkpoint为训练后模型文件路径，目前只支持音频特征为hubert的模型； 
