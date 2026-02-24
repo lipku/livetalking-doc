@@ -115,17 +115,49 @@ ffmpeg -i xxx.mp4 -vn -acodec pcm_s16le -ac 1 -ar 16000 data/customvideo/reply.w
 运行命令同上
 
 ### 3.4 avatar实时切换
-生成多个avatar形象，放置在data/avatars下，多个avatar的分辨率要一致  
+1. 准备同一个人物多个不同动作的视频，多个视频保持分辨率一致，背景一致。
+2. 用上述视频生成多个avatar形象，放置在data/avatars下
+3. 运行服务   
 通过json字符串描述要加载的多个avatar供切换用，如[{'avatarid':'avatar1'},{'avatarid':'avatar2'}]  
 运行示例，主avatar不要在multiavatar_config中描述
 ```
-python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_yunqiao  --multiavatar_config [{\"avatarid\":\"wav2lip256_yunqiaosilence\"}]
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_silence  --multiavatar_config [{\"avatarid\":\"wav2lip256_action\"}]
 ```
-在需要切换avatar时，在human接口中添加avatarid字段，如‘avatarid’:‘wav2lip256_yunqiaosilence’，具体查看api接口文档  
+4. 客户端控制切换avatar，在api接口/human中设置avatarid字段，如‘avatarid’:‘wav2lip256_action’，具体查看api接口文档  
 
-### 3.5 实时音频流输入
+### 3.5 同一个画面多个数字人
+1. 准备原始视频，视频中有多个人脸，不要相互遮挡；人物相对位置固定，比如A在B左边就一直在左边，不要移动到B的右边。
+2. 用原始视频生成多个avatar
+```bash
+cd wav2lip
+python genavatar_yolo_multi.py  --video_path ~/multiclip.mp4  --img_size 256 --avatar_id wav2lip_left --nth_avatar 0
+python genavatar_yolo_multi.py  --video_path ~/multiclip.mp4  --img_size 256 --avatar_id wav2lip_right --nth_avatar 1
+```
+nth_avatar: specifies which face to use for lip-syncing. 0 means the most left face, 1 means the second left face, and so on  
+3. 运行服务
+```bash
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip_left  --multiavatar_config [{\"avatarid\":\"wav2lip_right\"}] --multiavatar_use_sameframe
+```
+4. 客户端控制切换avatar和对应音色，在api接口/human中设置avatarid和tts字段，具体查看api接口文档 
+
+### 3.6 实时音频流输入
 通过websocket连接ws://serverip:8010/ws  
 连接后发送{'cmd':'login','sessionid':sessionid},设置当前连接的sessionid，其中sessionid是从offer接口返回的  
-如果音频数据流为pcm格式，发送{'cmd':'setpcm','samplerate':xxx}设置音频采样率，其中xxx设置为pcm数据的真实采样率  
+- 如果音频数据流为pcm格式，发送{'cmd':'setpcm','samplerate':xxx}设置音频采样率，其中xxx设置为pcm数据的真实采样率  
+- 切换avatar时,发送{'cmd':'setavatar','avatarid':'xxx'}，其中xxx为multiavatar_config配置的avatarid  
+
 然后每段音频数据，通过websocket直接发送二进制数据如ws.send(arrayBuffer)  
 代码参照webrtcapi-avatar.html
+
+### 3.7 摄像头实时驱动数字人形象动作和表情
+1. 运行服务
+```bash
+python app.py --transport webrtc --model wav2lip --liveavatar 0
+```
+其中0表示服务端本地第几个摄像头  
+2. 主播必须整个正脸在摄像头取景范围内，不用说话，可以做动作和表情  
+3. 客户端通过api接口/human控制说话内容  
+如果服务端没有摄像头，可以通过视频文件测试功能
+```bash
+python app.py --transport webrtc --model wav2lip --liveavatar xxx.mp4
+```

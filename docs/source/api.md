@@ -60,7 +60,8 @@ sessionid			|int		|R			|数字人会话id
 interrupt			|bool		|O			|是否打断数字人当前说话，默认为false
 type				|string		|R			|echo：数字人播报输入文字；chat：与数字人对话
 text				|string		|R			|文字内容
-avatarid			|string		|O			|选择用哪个avatar播报，与multiavatar_config中对应，默认用主avatar
+avatarid			|string		|O			|选择用哪个avatar播报，与multiavatar_config中对应，默认用主avatar('main')
+tts			        |string		|O			|配置tts的参考声音和参考文本,默认用命令行参数配置的ref_file和ref_text
 
 
 请求示例：
@@ -70,7 +71,9 @@ avatarid			|string		|O			|选择用哪个avatar播报，与multiavatar_config中
     ‘text’: ‘hello’,
     ‘type’: 'echo',
     ‘interrupt’: true,
-    ‘sessionid’:0
+    ‘sessionid’:0,
+    'avatarid':'wav2lip256_action',
+    'tts':{'ref_file':'xxx','ref_text':'xxx'}
 }
 
 ```
