@@ -69,7 +69,7 @@ python -m scripts.realtime_inference --inference_config configs/inference/realti
 
 Option 2:  
 ```bash
-python genavatar_musetalk.py --avatar_id musetalk_avatar1 --file D:\\ok\\test.mp4
+python musetalk/genavatar.py --avatar_id musetalk_avatar1 --file D:\\ok\\test.mp4
 # Supports video and image input; files will be automatically generated to the data/avatars directory
 ```  
 
