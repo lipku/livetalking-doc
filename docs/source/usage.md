@@ -17,8 +17,7 @@ python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1
 可以设置--batch_size 提高显卡利用率，设置--avatar_id 运行不同的数字人
 ##### 替换成自己的数字人
 ```bash
-cd wav2lip
-python genavatar.py --video_path xxx.mp4 --img_size 256 --avatar_id wav2lip256_avatar1 #img_size固定为256，与模型相关
+python avatars.wav2lip.genavatar --video_path xxx.mp4 --img_size 256 --avatar_id wav2lip256_avatar1 #img_size固定为256，与模型相关
 ```
 运行后将results/avatars下文件拷到本项目的data/avatars下  
 **输入视频需要用闭嘴不说话的视频**
@@ -53,7 +52,7 @@ python -m scripts.realtime_inference --inference_config configs/inference/realti
 ```
 或者在livetalking项目中执行
 ```bash
-python musetalk/genavatar.py --avatar_id musetalk_avatar1 --file D:\\ok\\test.mp4
+python -m avatars.musetalk.genavatar --avatar_id musetalk_avatar1 --file ~/sun.mp4
 支持视频和图片生成,会自动生成到data的avatars目录下
 ```
 **输入视频需要用闭嘴不说话的视频**
