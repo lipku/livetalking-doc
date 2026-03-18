@@ -17,7 +17,7 @@ python app.py --transport webrtc --model wav2lipls --avatar_id wav2lipls_avatar1
 ```   
  替换成自己的数字人
 ```bash
-python -m avatars.wav2lip.genavatar_yolo.py --video_path xxx.mp4  --img_size 192 --avatar_id wav2lipls_avatar1
+python -m avatars.wav2lip.genavatar_yolo --video_path xxx.mp4  --img_size 192 --avatar_id wav2lipls_avatar1
 运行后将results/avatars下文件拷到本项目的data/avatars下
 ```
 2. 384模型  
@@ -27,7 +27,7 @@ python app.py --transport webrtc --model wav2lipls --avatar_id wav2lipls384_avat
 ```  
 替换成自己的数字人
 ```bash
-python -m avatars.wav2lip.genavatar_yolo.py --video_path xxx.mp4  --img_size 384 --avatar_id wav2lipls384_avatar1
+python -m avatars.wav2lip.genavatar_yolo --video_path xxx.mp4  --img_size 384 --avatar_id wav2lipls384_avatar1
 运行后将results/avatars下文件拷到本项目的data/avatars下
 ```
 3. 使用微调模型
@@ -70,8 +70,7 @@ ffmpeg -i silence.mp4 -vf fps=25 -qmin 1 -q:v 1 -start_number 0 data/customvideo
 ```
 - 4，用有动作视频生成avatar，如
 ```
-cd wav2lip
-python genavatar.py  --video_path speak.mp4  --img_size 192 --avatar_id wav2lipls_avatar1
+python -m avatars.wav2lip.genavatar_yolo  --video_path speak.mp4  --img_size 192 --avatar_id wav2lipls_avatar1
 ```
 其中img_size根据不同的模型分别设置
 
@@ -127,9 +126,8 @@ python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_silence 
 1. 准备原始视频，视频中有多个人脸，不要相互遮挡；人物相对位置固定，比如A在B左边就一直在左边，不要移动到B的右边。
 2. 用原始视频生成多个avatar
 ```bash
-cd wav2lip
-python genavatar_yolo_multi.py  --video_path ~/multiclip.mp4  --img_size 256 --avatar_id wav2lip_left --nth_avatar 0
-python genavatar_yolo_multi.py  --video_path ~/multiclip.mp4  --img_size 256 --avatar_id wav2lip_right --nth_avatar 1
+python -m avatars.wav2lip.genavatar_yolo_multi  --video_path ~/multiclip.mp4  --img_size 256 --avatar_id wav2lip_left --nth_avatar 0
+python -m avatars.wav2lip.genavatar_yolo_multi  --video_path ~/multiclip.mp4  --img_size 256 --avatar_id wav2lip_right --nth_avatar 1
 ```
 nth_avatar: specifies which face to use for lip-syncing. 0 means the most left face, 1 means the second left face, and so on  
 3. 运行服务
