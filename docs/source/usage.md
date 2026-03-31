@@ -1,4 +1,3 @@
----
 
 ## 3. Usage
 Select a digital human model, transport method, and TTS model respectively.
@@ -7,7 +6,6 @@ Select a digital human model, transport method, and TTS model respectively.
 Supports 4 models: **ernerf, musetalk, wav2lip, Ultralight-Digital-Human**.  
 Default: **wav2lip**
 
----
 
 #### 3.1.1 Model: wav2lip
 - Download models  
@@ -39,7 +37,6 @@ python -m avatars.wav2lip.genavatar --video_path xxx.mp4 --img_size 256 --avatar
 
 **Input video must be a silent video (mouth closed, no speech).**
 
----
 
 #### 3.1.2 Model: musetalk
 - Install dependencies  
@@ -83,7 +80,6 @@ Supports video/image input. Output: `data/avatars/`
 
 **Input video must be silent (mouth closed, no speech).**
 
----
 
 #### 3.1.3 Model: ER-Nerf
 The ernerf model is in the git branch `ernerf-rtmp`.
@@ -144,8 +140,6 @@ Folder structure:
 │   └── ngp_kf.pth        (from ngp_ep00xx.pth)
 ```
 
----
-
 #### 3.1.4 Model: Ultralight-Digital-Human
 - Create avatar
   Train a model from:  
@@ -166,7 +160,6 @@ Folder structure:
   ```
   Open: `http://serverip:8010/webrtcapi.html`
 
----
 
 ### 3.2 Transport Mode
 Supports `webrtc`, `rtcpush`, `rtmp`. Default: `webrtc`.
@@ -182,7 +175,6 @@ UDP: 1–65536
 
 Open: `http://serverip:8010/webrtcapi.html`
 
----
 
 #### 3.2.2 WebRTC push to SRS
 - Start SRS
@@ -205,8 +197,6 @@ UDP: 8000
 
 Open: `http://serverip:8010/rtcpushapi.html`  
 Modify host in `rtcpushapi.html` if push URL is not localhost.
-
----
 
 #### 3.2.3 RTMP push
 - Install `rtmpstream`  
@@ -231,8 +221,6 @@ docker run --rm --env CANDIDATE=$CANDIDATE \
   registry.cn-hangzhou.aliyuncs.com/ossrs/srs:5 \
   objs/srs -c conf/rtc2rtmp
 ```
-
----
 
 ### 3.3 TTS Model
 Supports: `edgetts, gpt-sovits, fish-speech, xtts, cosyvoice`.  
@@ -291,8 +279,6 @@ Run:
 python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1 --tts xtts --REF_FILE data/ref.wav --TTS_SERVER http://localhost:9000
 ```
 
----
-
 ### 3.4 Action Choreography
 1. Generate assets
    ```bash
@@ -315,7 +301,6 @@ python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1 
    `http://<serverip>:8010/webrtcapi-custom.html`  
    Enter `audiotype` to switch videos. Silent videos switch automatically.
 
----
 
 ### 3.5 LLM Dialogue
 Currently uses Qwen API (OpenAI-compatible). Supports streaming output.  
@@ -327,7 +312,6 @@ Open:
 - `http://serverip:8010/rtcpushchat.html`
 - `http://serverip:8010/webrtcchat.html`
 
----
 
 ### 3.6 Multi-Concurrency
 ```bash
@@ -335,7 +319,6 @@ python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1 
 ```
 Open multiple `webrtcapi.html` tabs.
 
----
 
 ### 3.7 Audio Input
 1. FunASR speech recognition  
@@ -358,7 +341,6 @@ Open multiple `webrtcapi.html` tabs.
    ```
    Open `dashboard.html` (add to browser secure origin whitelist first).
 
----
 
 ### 3.8 Virtual Camera Output
 Install virtual camera: <https://github.com/letmaik/pyvirtualcam>
@@ -369,5 +351,3 @@ python app.py --transport virtualcam --model wav2lip --avatar_id wav2lip256_avat
 ```
 Open OBS or other streaming software, select the virtual camera as input.  
 Open `webrtcapi.html`, **do NOT click start** — just type text and send.
-
----
