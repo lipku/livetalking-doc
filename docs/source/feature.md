@@ -17,4 +17,4 @@ Project address: <https://github.com/lipku/livetalking>
 ---
 * Knowledge Planet: <https://t.zsxq.com/7NMyO> where high-quality common problems, best practice experiences, and problem solutions are accumulated.
 * WeChat Official Account: Digital Human Technology  
-![](./assets/qrcode_wechat.jpg) 
+![](./assets/qrcode-wechat.jpg) 

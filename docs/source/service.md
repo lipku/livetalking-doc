@@ -38,13 +38,23 @@ P.S.: The HD model improves lip movement accuracy and tooth clarity, **not** the
 
 ## 7.3 Price List  
 
-| Feature | Price | Remarks |  
-| :--- | :--- | :--- |  
-| HD wav2lip Model | ¥3,000 | [Demo Video](./assets/wav2lipls384.MP4) |  
-| Unlimited-Duration Avatar (Currently only supports wav2lip) | ¥3,000 | - |  
-| Transparent Background + Vue Code | ¥3,000 | [Demo Video](https://www.bilibili.com/video/BV1CYKWzzEzs/) |  
-| Voice Interaction, Synchronized Subtitles & Event Notifications, Vue Code | ¥8,000 | [Demo Video](https://www.bilibili.com/video/BV1ABKUzVEdP) |  
-| Assign Unique Avatar & Voice to Each Connection | ¥1,000 | - |  
-| Real-Time Audio Stream Input | ¥2,000 | - |  
-| Real-Time Avatar & Action Switching | ¥5,000 | [Demo Video](https://www.bilibili.com/video/BV1mMpEzuEty/) |  
-| Python Client | ¥4,000 | [Demo Video](https://www.bilibili.com/video/BV13va7zNEVv) |
+1. Packaged Versions
+
+| Features | Price | Notes |
+| :--- | :--- | :--- |
+| Basic Package:<br>High-definition wav2lip model;<br>Voice interaction; synchronized subtitles + start/end event notifications for speech;<br>Transparent background + Vue source code;<br>Real-time audio stream input;<br>Real-time switching of avatar appearance and actions | ¥18,000 | Meets most large-screen display and digital human presentation needs |
+| Upgrade Package:<br>Multiple digital humans on screen simultaneously | ¥2,000 | [Demo](https://www.bilibili.com/video/BV1FAPVzYEfC) |
+| Upgrade Package:<br>Camera-driven avatar movements and facial expressions | ¥5,000 | |
+
+---
+
+
+2. Features Available for Separate Purchase
+
+| Features | Price | Notes |
+| :--- | :--- | :--- |
+| High-definition wav2lip model | ¥3,000 | [Demo](./assets/wav2lipls384.MP4) |
+| Unlimited-duration avatar (currently only supports wav2lip) | ¥3,000 | |
+| Transparent background + Vue source code | ¥3,000 | [Demo](https://www.bilibili.com/video/BV1CYKWzzEzs/) |
+| Real-time audio stream input | ¥2,000 | |
+| Python client | ¥3,000 | [Demo](https://www.bilibili.com/video/BV13va7zNEVv) |
