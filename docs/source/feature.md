@@ -5,18 +5,23 @@ Real time interactive streaming digital human， realize audio video synchronous
 镜像地址:<https://gitee.com/lipku/LiveTalking>  
 
 [ernerf效果](https://www.bilibili.com/video/BV1G1421z73r/)  
-[musetalk效果](https://www.bilibili.com/video/BV1gm421N7vQ/)  
+[musetalk效果](https://www.bilibili.com/video/BV1bUwezvEnG)  
 [wav2lip效果](https://www.bilibili.com/video/BV1scwBeyELA/)
 
 ## 0. Features
 1. 支持多种数字人模型: ernerf、musetalk、wav2lip、Ultralight-Digital-Human
 2. 支持声音克隆
 3. 支持数字人说话被打断
-4. 支持全身视频拼接
-5. 支持webrtc、虚拟摄像头输出
-6. 支持动作编排：不说话时播放自定义视频
+4. 支持webrtc、rtmp、虚拟摄像头输出
+5. 支持动作编排：不说话时播放自定义视频
+6. 支持多并发
+7. 支持自定义数字人形象
 
 ---
-* 知识星球:<https://t.zsxq.com/7NMyO> 沉淀高质量常见问题、最佳实践经验、问题解答  
-* 微信公众号：数字人技术   
-![](./assets/qrcode_wechat.jpg)
+* 知识星球: https://t.zsxq.com/7NMyO 沉淀高质量常见问题、最佳实践经验、问题解答  
+* 微信：wxwubug      
+* Telegram: https://t.me/livetalking  
+* Discord: https://discord.gg/n5jSPCT3Uf  
+* Email: lipku@foxmail.com  
+* 微信公众号：数字人技术    
+<img src="./assets/qrcode-wechat.jpg" align="middle" />

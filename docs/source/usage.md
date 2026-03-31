@@ -3,7 +3,7 @@
 分别选择数字人模型、传输方式、tts模型
 
 ### 3.1 数字人模型
-支持4种模型：ernerf、musetalk、wav2lip、Ultralight-Digital-Human
+支持4种模型：ernerf、musetalk、wav2lip、Ultralight-Digital-Human，默认用wav2lip  
 
 #### 3.1.1 模型用wav2lip
 - 下载模型  
@@ -17,13 +17,16 @@ python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1
 可以设置--batch_size 提高显卡利用率，设置--avatar_id 运行不同的数字人
 ##### 替换成自己的数字人
 ```bash
-python avatars.wav2lip.genavatar --video_path xxx.mp4 --img_size 256 --avatar_id wav2lip256_avatar1 #img_size固定为256，与模型相关
+python -m avatars.wav2lip.genavatar --video_path xxx.mp4 --img_size 256 --avatar_id wav2lip256_avatar1 #img_size固定为256，与模型相关
+#生成文件在本项目data/avatars目录下  
+#如果一直卡住不动，可以将--face_det_batch_size改小一些
 ```
-运行后将results/avatars下文件拷到本项目的data/avatars下  
+  
 **输入视频需要用闭嘴不说话的视频**
 
 #### 3.1.2 模型用musetalk
-- 安装依赖库
+- 安装依赖库  
+以下库只在生成avatar使用，推理不需要，如果有冲突可以单独建立一个环境安装  
 ```bash
 conda install ffmpeg
 pip install --no-cache-dir -U openmim 
@@ -46,14 +49,14 @@ python app.py --transport webrtc --model musetalk --avatar_id musetalk_avatar1
 ```bash
 git clone https://github.com/TMElyralab/MuseTalk.git
 cd MuseTalk
-修改configs/inference/realtime.yaml，将preparation改为True
+#修改configs/inference/realtime.yaml，将preparation改为True
 python -m scripts.realtime_inference --inference_config configs/inference/realtime.yaml
-运行后将results/avatars下文件拷到本项目的data/avatars下
+#运行后将results/avatars下文件拷到本项目的data/avatars下
 ```
 或者在livetalking项目中执行
 ```bash
 python -m avatars.musetalk.genavatar --avatar_id musetalk_avatar1 --file ~/sun.mp4
-支持视频和图片生成,会自动生成到data的avatars目录下
+#支持视频和图片生成,生成文件在本项目data/avatars目录下
 ```
 **输入视频需要用闭嘴不说话的视频**
 
@@ -106,14 +109,13 @@ python app.py --transport webrtc --model ernerf --fullbody --fullbody_img data/f
 #### 3.1.4 模型用Ultralight-Digital-Human
 - 制作avatar  
 先根据项目 <https://github.com/anliyuan/Ultralight-Digital-Human> 训练模型，  
-然后将Ultralight-Digital-Human项目下checkpoint_epoch_335.pth.tar和scrfd_2.5g_kps.onnx拷到本项目ultralight/face_detect_utils下  
+然后将Ultralight-Digital-Human项目下checkpoint_epoch_335.pth.tar和scrfd_2.5g_kps.onnx拷到本项目models下  
 运行
 ```bash
-cd ultralight
 #checkpoint为训练后模型文件路径，目前只支持音频特征为hubert的模型； 
 #video_path提供一段训练人物闭嘴不说话的视频
-python genavatar.py --video_path xxx.mp4 --avatar_id ultralight_avatar1 --checkpoint xxx.pth  
-运行后将results/avatars下文件拷到本项目的data/avatars下
+python -m avatars.ultralight.genavatar --video_path xxx.mp4 --avatar_id ultralight_avatar1 --checkpoint xxx.pth  
+#生成文件在本项目data/avatars目录下
 ```
 - 运行  
 python app.py --transport webrtc --model ultralight --avatar_id ultralight_avatar1  
@@ -122,9 +124,8 @@ python app.py --transport webrtc --model ultralight --avatar_id ultralight_avata
 
 
 ### 3.2 传输模式
-支持webrtc、rtcpush、rtmp，默认用rtcpush
+支持webrtc、rtcpush、rtmp，默认用webrtc
 #### 3.2.1 webrtc p2p
-此种模式不需要srs
 ```
 python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1
 ```
@@ -144,15 +145,15 @@ docker run --rm --env CANDIDATE=$CANDIDATE \
 ```python
 python app.py --transport rtcpush --push_url 'http://localhost:1985/rtc/v1/whip/?app=live&stream=livestream' --model wav2lip --avatar_id wav2lip256_avatar1
 ```
-<font color=red>服务端需要开放端口 tcp:8000,8010,1985; udp:8000</font>
-用浏览器打开http://serverip:8010/rtcpushapi.html
+<font color=red>服务端需要开放端口 tcp:8000,8010,1985; udp:8000</font>  
+用浏览器打开http://serverip:8010/rtcpushapi.html  
+如果推送地址不是localhost，需要在rtcpushapi.html中相应修改host地址
 
 #### 3.2.3 rtmp推送
-rtmp目前只支持ernerf模型，后续不再支持该种传输方式。如需要rtmp传输，可通过srs转发实现
 - 安装rtmpstream库  
 <https://github.com/lipku/python_rtmpstream>
 
-- 启动srs
+- 启动rtmp服务器（此处用srs）  
 ```
 docker run --rm -it -p 1935:1935 -p 1985:1985 -p 8080:8080 registry.cn-hangzhou.aliyuncs.com/ossrs/srs:5
 ```
@@ -160,7 +161,8 @@ docker run --rm -it -p 1935:1935 -p 1985:1985 -p 8080:8080 registry.cn-hangzhou.
 ```python
 python app.py --transport rtmp --push_url 'rtmp://localhost/live/livestream'
 ```
-用浏览器打开http://serverip:8010/echoapi.html
+用浏览器打开http://serverip:8010/rtmpapi.html  
+如果推送地址不是localhost，需要在rtmpapi.html中相应修改host地址
 
 **rtmp也可以通过rtcpush到srs，由srs转成rtmp流**
 ```bash
@@ -216,7 +218,15 @@ python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1 
 ```
 REF_FILE为音色ID，可以上<https://www.volcengine.com/docs/6561/1257544>查看音色列表，也可以是自己克隆的音色id
 
-#### 3.3.6 xtts
+#### 3.3.6 阿里千问语音服务
+运行
+```shell
+export DASHSCOPE_API_KEY=<your_api_key>
+python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1 --tts qwen  --REF_FILE Cherry
+```
+REF_FILE为音色ID，可以上<https://help.aliyun.com/zh/model-studio/qwen-tts-realtime?spm=a2c4g.11186623.0.0.2f86cb646t1DwA#bac280ddf5a1u>查看音色列表，也可以是自己克隆的音色id
+
+#### 3.3.7 xtts
 运行xtts服务，参照<https://github.com/coqui-ai/xtts-streaming-server>
 ```
 docker run --gpus=all -e COQUI_TOS_AGREED=1 --rm -p 9000:80 ghcr.io/coqui-ai/xtts-streaming-server:latest
@@ -251,7 +261,7 @@ export DASHSCOPE_API_KEY=<your_api_key>
 
 根据传输模式用浏览器打开http://serverip:8010/rtcpushchat.html或http://serverip:8010/webrtcchat.html
 
-### 3.6 多会话
+### 3.6 多并发
 ```
 python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_avatar1 --max_session 3 
 ```
@@ -282,8 +292,6 @@ python app.py --transport virtualcam --model wav2lip --avatar_id wav2lip256_avat
 打开obs或者其他直播软件，摄像头输入选择虚拟摄像头，可以看到数字人视频  
 打开webrtcapi.html，不要点击start，直接输入文字，点击send，在obs能看到数字人说话
 
-### 3.9 更多功能集成
-- 语音输入、知识库问答 [Fay](https://github.com/xszyou/Fay)
-- 虚拟主播，字幕抓取 [Luna](https://github.com/Ikaros-521/AI-Vtuber)
+
 
 
