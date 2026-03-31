@@ -17,18 +17,17 @@ python app.py --transport webrtc --model wav2lipls --avatar_id wav2lipls_avatar1
 ```   
  替换成自己的数字人
 ```bash
-python -m avatars.wav2lip.genavatar_yolo --video_path xxx.mp4  --img_size 192 --avatar_id wav2lipls_avatar1
-运行后将results/avatars下文件拷到本项目的data/avatars下
+python -m avatars.wav2lipls.genavatar_yolo --video_path xxx.mp4  --img_size 192 --avatar_id wav2lipls_avatar1
+#生成文件在本项目的data/avatars下
 ```
 2. 384模型  
-修改wav2lipls/models/human.py，将face_size = 192改为face_size = 384
 ```  
 python app.py --transport webrtc --model wav2lipls --avatar_id wav2lipls384_avatar1 --modelres 384
 ```  
 替换成自己的数字人
 ```bash
-python -m avatars.wav2lip.genavatar_yolo --video_path xxx.mp4  --img_size 384 --avatar_id wav2lipls384_avatar1
-运行后将results/avatars下文件拷到本项目的data/avatars下
+python -m avatars.wav2lipls.genavatar_yolo --video_path xxx.mp4  --img_size 384 --avatar_id wav2lipls384_avatar1
+#生成文件在本项目的data/avatars下
 ```
 3. 使用微调模型
 将微调后模型拷贝到models目录下  
@@ -70,7 +69,7 @@ ffmpeg -i silence.mp4 -vf fps=25 -qmin 1 -q:v 1 -start_number 0 data/customvideo
 ```
 - 4，用有动作视频生成avatar，如
 ```
-python -m avatars.wav2lip.genavatar_yolo  --video_path speak.mp4  --img_size 192 --avatar_id wav2lipls_avatar1
+python -m avatars.wav2lipls.genavatar_yolo  --video_path speak.mp4  --img_size 192 --avatar_id wav2lipls_avatar1
 ```
 其中img_size根据不同的模型分别设置
 
@@ -126,8 +125,8 @@ python app.py --transport webrtc --model wav2lip --avatar_id wav2lip256_silence 
 1. 准备原始视频，视频中有多个人脸，不要相互遮挡；人物相对位置固定，比如A在B左边就一直在左边，不要移动到B的右边。
 2. 用原始视频生成多个avatar
 ```bash
-python -m avatars.wav2lip.genavatar_yolo_multi  --video_path ~/multiclip.mp4  --img_size 256 --avatar_id wav2lip_left --nth_avatar 0
-python -m avatars.wav2lip.genavatar_yolo_multi  --video_path ~/multiclip.mp4  --img_size 256 --avatar_id wav2lip_right --nth_avatar 1
+python -m avatars.wav2lipls.genavatar_yolo_multi  --video_path ~/multiclip.mp4  --img_size 256 --avatar_id wav2lip_left --nth_avatar 0
+python -m avatars.wav2lipls.genavatar_yolo_multi  --video_path ~/multiclip.mp4  --img_size 256 --avatar_id wav2lip_right --nth_avatar 1
 ```
 nth_avatar: specifies which face to use for lip-syncing. 0 means the most left face, 1 means the second left face, and so on  
 3. 运行服务
@@ -153,7 +152,7 @@ python app.py --transport webrtc --model wav2lip --liveavatar 0
 其中0表示服务端本地第几个摄像头  
 2. 主播必须整个正脸在摄像头取景范围内，不用说话，可以做动作和表情  
 3. 客户端通过api接口/human控制说话内容  
-如果服务端没有摄像头，可以通过视频文件测试功能
+如果服务端没有摄像头，可以通过视频文件测试功能，也可以是网络视频流比如rtmp、rtsp等
 ```bash
 python app.py --transport webrtc --model wav2lip --liveavatar xxx.mp4
 ```
