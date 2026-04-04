@@ -42,8 +42,8 @@ P.S.: The HD model improves lip movement accuracy and tooth clarity, **not** the
 
 | Features | Price | Notes |
 | :--- | :--- | :--- |
-| Basic Package:<br>High-definition wav2lip model;<br>Voice interaction; synchronized subtitles + start/end event notifications for speech;<br>Transparent background + Vue source code;<br>Real-time audio stream input;<br>Real-time switching of avatar appearance and actions | ¥18,000 | Meets most large-screen display and digital human presentation needs |
-| Upgrade Package:<br>Multiple digital humans on screen simultaneously | ¥2,000 | [Demo](https://www.bilibili.com/video/BV1FAPVzYEfC) |
+| Basic Package:<br>High-definition wav2lip model;<br>Voice interaction; synchronized subtitles + start/end event notifications for speech;<br>Transparent background + Vue source code;<br>Real-time audio stream input;<br>Real-time switching of avatar appearance and actions | ¥18,000 | [Demo Effect](https://youtu.be/-ss0H8qLr7E), Meets most large-screen display and digital human presentation needs |
+| Upgrade Package:<br>Multiple digital humans on screen simultaneously | ¥2,000 | [Demo Effect](https://youtu.be/DWmXRyU2C9M) |
 | Upgrade Package:<br>Camera-driven avatar movements and facial expressions | ¥5,000 | |
 
 ---
@@ -53,8 +53,8 @@ P.S.: The HD model improves lip movement accuracy and tooth clarity, **not** the
 
 | Features | Price | Notes |
 | :--- | :--- | :--- |
-| High-definition wav2lip model | ¥3,000 | [Demo](./assets/wav2lipls384.MP4) |
+| High-definition wav2lip model | ¥3,000 | [Demo Effect](./assets/wav2lipls384.MP4) |
 | Unlimited-duration avatar (currently only supports wav2lip) | ¥3,000 | |
-| Transparent background + Vue source code | ¥3,000 | [Demo](https://www.bilibili.com/video/BV1CYKWzzEzs/) |
+| Transparent background + Vue source code | ¥3,000 | [Demo Effect](https://youtu.be/2KgbFjcBOew) |
 | Real-time audio stream input | ¥2,000 | |
-| Python client | ¥3,000 | [Demo](https://www.bilibili.com/video/BV13va7zNEVv) |
+| Python client | ¥3,000 | [Demo Effect](https://youtu.be/f7mC9fH2YLg) |
