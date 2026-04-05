@@ -45,6 +45,7 @@ P.S.: The HD model improves lip movement accuracy and tooth clarity, **not** the
 | Basic Package:<br>High-definition wav2lip model;<br>Voice interaction; synchronized subtitles + start/end event notifications for speech;<br>Transparent background + Vue source code;<br>Real-time audio stream input;<br>Real-time switching of avatar appearance and actions | ¥18,000 | [Demo Effect](https://youtu.be/-ss0H8qLr7E), Meets most large-screen display and digital human presentation needs |
 | Upgrade Package:<br>Multiple digital humans on screen simultaneously | ¥2,000 | [Demo Effect](https://youtu.be/DWmXRyU2C9M) |
 | Upgrade Package:<br>Camera-driven avatar movements and facial expressions | ¥5,000 | |
+| Upgrade Package:<br>Integrate to livekit | ¥8,000 | [Demo Effect](https://youtu.be/9b_KQX7jT_c) |
 
 ---
 
